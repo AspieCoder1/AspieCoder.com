@@ -16,8 +16,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 const Posts: NextPage<Props, {}> = props => {
 	return (
 		<>
-			<h1>{props.title}</h1>
-			<ReactMarkdown>{props.article}</ReactMarkdown>
+			<header className='flex flex-col items-center justify-center w-full text-center'>
+				<h1 className='text-6xl font-bold'>{props.title}</h1>
+			</header>
+			<main>
+				<ReactMarkdown>{props.article}</ReactMarkdown>
+			</main>
 		</>
 	);
 };

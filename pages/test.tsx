@@ -16,7 +16,9 @@ type Props = {
 const Test: NextPage<Props, {}> = props => {
 	return (
 		<>
-			<h1>{props.title}</h1>
+			<header className='flex flex-col items-center justify-center w-full flex-1 px-20 text-center'>
+				<h1 className='text-6xl font-bold'>{props.title}</h1>
+			</header>
 			<ReactMarkdown>{props.article}</ReactMarkdown>
 		</>
 	);
