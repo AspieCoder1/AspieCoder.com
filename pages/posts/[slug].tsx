@@ -1,4 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
+import Image from 'next/image';
+import remarkGfm from 'remark-gfm';
 
 import { getPage } from '@utils/contentfulClient';
 import ReactMarkdown from 'react-markdown';
@@ -8,6 +10,7 @@ import readingTime, { ReadTimeResults } from 'reading-time';
 import Header from '@components/Header';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import Head from 'next/head';
 
 type Props = {
 	title: string;
@@ -27,8 +30,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 const Posts: NextPage<Props, {}> = props => {
 	return (
 		<div className='flex flex-col min-h-screen'>
+			<Head>
+				<title>{props.title}</title>
+			</Head>
 			<Header title={props.title} date={props.date} readingTime={props.readingTime.text} />
-			<article className='bg-gray-800 text-white grow'>
+			<article className='bg-gray-900 text-white grow'>
 				<ReactMarkdown
 					className=' mt-16 max-w-screen-md mx-auto text-lg'
 					components={{
@@ -41,17 +47,30 @@ const Posts: NextPage<Props, {}> = props => {
 						code: ({ node, inline, className, children, ...props }) => {
 							const match = /language-(\w+)/.exec(className || '');
 							return !inline && match ? (
-								// @ts-ignore
-								<SyntaxHighlighter style={materialDark} language={match[1]} wrapLongLines>
+								<SyntaxHighlighter
+									style={materialDark}
+									language={match[1]}
+									wrapLongLines
+									customStyle={{ backgroundColor: 'transparent', padding: 0, margin: 0 }}
+									codeTagProps={{
+										className: '',
+									}}
+									preTag='div'
+								>
 									{String(children).replace(/\n$/, '')}
 								</SyntaxHighlighter>
 							) : (
-								<code className={className} {...props}>
+								<code className={`${className} pl-1 pr-1 font-mono text-lg bg-gray-800 rounded-md`} {...props}>
 									{children}
 								</code>
 							);
 						},
+						img: ({ src, title }) => (
+							<img className='mx-auto max-w-full h-auto mb-4 mt-4' src={src ?? ''} alt={title} />
+						),
+						ul: ({ children }) => <ul className='list-disc list-inside mb-4'>{children}</ul>,
 					}}
+					plugins={[remarkGfm]}
 				>
 					{props.article}
 				</ReactMarkdown>
