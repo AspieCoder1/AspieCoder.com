@@ -7,10 +7,12 @@ const client = createClient({
 	accessToken: CF_DELIVERY_ACCESS_TOKEN ?? '', // delivery API key for the space \
 });
 
-type TBlogPost = {
+export type TBlogPost = {
 	title: string;
 	slug: string;
 	article: string;
+	author: string;
+	date: string;
 };
 
 const getPage = async (slug: string): Promise<TBlogPost> => {

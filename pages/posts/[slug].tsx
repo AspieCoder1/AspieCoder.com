@@ -1,8 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
-import Image from 'next/image';
 import remarkGfm from 'remark-gfm';
 
-import { getPage } from '@utils/contentfulClient';
+import { getPage, TBlogPost } from '@utils/contentfulClient';
 import ReactMarkdown from 'react-markdown';
 
 import readingTime, { ReadTimeResults } from 'reading-time';
@@ -12,11 +11,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import Head from 'next/head';
 
-type Props = {
-	title: string;
-	slug: string;
-	article: string;
-	date: string;
+type Props = TBlogPost & {
 	readingTime: ReadTimeResults;
 };
 
@@ -33,10 +28,10 @@ const Posts: NextPage<Props, {}> = props => {
 			<Head>
 				<title>{props.title}</title>
 			</Head>
-			<Header title={props.title} date={props.date} readingTime={props.readingTime.text} />
+			<Header title={props.title} date={props.date} readingTime={props.readingTime.text} author={props.author} />
 			<article className='bg-gray-900 text-white grow'>
 				<ReactMarkdown
-					className=' mt-16 max-w-screen-md mx-auto text-lg'
+					className='mt-16 lg:max-w-screen-lg lg:mx-auto max-w-screen-md mr-4 ml-4 text-lg lg:pr-4 lg:pl-4'
 					components={{
 						h1: ({ node, children, ...h1Props }) => (
 							<h1 className='text-3xl font-bold mb-4' {...h1Props}>
