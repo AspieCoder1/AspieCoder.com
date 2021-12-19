@@ -1,10 +1,13 @@
-import Header from '@components/Header';
-import Image from 'next/image';
 import { GetServerSideProps, NextPage } from 'next';
+
 import { getPage } from '@utils/contentfulClient';
 import ReactMarkdown from 'react-markdown';
-import dayjs from 'dayjs';
+
 import readingTime, { ReadTimeResults } from 'reading-time';
+
+import Header from '@components/Header';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 type Props = {
 	title: string;
@@ -35,6 +38,19 @@ const Posts: NextPage<Props, {}> = props => {
 							</h1>
 						),
 						p: ({ children }) => <p className='mb-4'>{children}</p>,
+						code: ({ node, inline, className, children, ...props }) => {
+							const match = /language-(\w+)/.exec(className || '');
+							return !inline && match ? (
+								// @ts-ignore
+								<SyntaxHighlighter style={materialDark} language={match[1]} wrapLongLines>
+									{String(children).replace(/\n$/, '')}
+								</SyntaxHighlighter>
+							) : (
+								<code className={className} {...props}>
+									{children}
+								</code>
+							);
+						},
 					}}
 				>
 					{props.article}

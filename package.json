@@ -8,12 +8,14 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@types/react-syntax-highlighter": "^13.5.2",
 		"contentful": "^9.1.5",
 		"dayjs": "^1.10.7",
 		"next": "12.0.7",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
 		"react-markdown": "^7.1.1",
+		"react-syntax-highlighter": "^15.4.5",
 		"reading-time": "^1.5.0"
 	},
 	"devDependencies": {
