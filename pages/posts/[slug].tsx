@@ -1,3 +1,4 @@
+import Header from '@components/Header';
 import Image from 'next/image';
 import { GetServerSideProps, NextPage } from 'next';
 import { getPage } from '@utils/contentfulClient';
@@ -22,16 +23,24 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 const Posts: NextPage<Props, {}> = props => {
 	return (
-		<>
-			<header className='flex flex-col items-center justify-center w-full text-center'>
-				<h1 className='text-6xl font-bold'>{props.title}</h1>
-				<p>Date: {dayjs(props.date).format('MMM D, YYYY')}</p>
-				<p>{props.readingTime.text}</p>
-			</header>
-			<main>
-				<ReactMarkdown>{props.article}</ReactMarkdown>
-			</main>
-		</>
+		<div className='flex flex-col min-h-screen'>
+			<Header title={props.title} date={props.date} readingTime={props.readingTime.text} />
+			<article className='bg-gray-800 text-white grow'>
+				<ReactMarkdown
+					className=' mt-16 max-w-screen-md mx-auto text-lg'
+					components={{
+						h1: ({ node, children, ...h1Props }) => (
+							<h1 className='text-3xl font-bold mb-4' {...h1Props}>
+								{children}
+							</h1>
+						),
+						p: ({ children }) => <p className='mb-4'>{children}</p>,
+					}}
+				>
+					{props.article}
+				</ReactMarkdown>
+			</article>
+		</div>
 	);
 };
 
