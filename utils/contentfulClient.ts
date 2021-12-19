@@ -7,18 +7,13 @@ const client = createClient({
 	accessToken: CF_DELIVERY_ACCESS_TOKEN ?? '', // delivery API key for the space \
 });
 
-type GetPageParams = {
-	pageContentType: string;
-	slug: string;
-};
-
-type Fields = {
+type TBlogPost = {
 	title: string;
 	slug: string;
 	article: string;
 };
 
-const getPage = async (slug: string): Promise<Fields> => {
+const getPage = async (slug: string): Promise<TBlogPost> => {
 	const query = {
 		limit: 1,
 		include: 10,
@@ -29,24 +24,21 @@ const getPage = async (slug: string): Promise<Fields> => {
 	};
 	const {
 		items: [page],
-	} = await client.getEntries(query);
-	return (page.fields || { title: 'not found', slug: 'not found', article: 'not found' }) as Fields;
+	} = await client.getEntries<TBlogPost>(query);
+	return page.fields || { title: 'not found', slug: 'not found', article: 'not found' };
 };
 
 const getEntries = (): Promise<EntryCollection<unknown>> => {
 	return client.getEntries();
 };
 
-const getSlugs = async () => {
+const getSlugs = async (): Promise<string[]> => {
 	const query = {
 		locale: 'en-US',
 		content_type: 'blogPost',
 	};
 
-	const { items } = await client.getEntries(query);
-	//@ts-ignore
-	console.log(items.map(item => item.fields.slug));
-	// @ts-ignore
+	const { items } = await client.getEntries<TBlogPost>(query);
 	return items.map(item => item.fields.slug);
 };
 
