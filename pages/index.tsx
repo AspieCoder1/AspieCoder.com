@@ -44,9 +44,9 @@ const Home: NextPage<Props, {}> = props => {
 						<h2 className='text-7xl'>Welcome to the site!</h2>
 					</div>
 					{props.mostRecent && <MainCard content={props.mostRecent} />}
-					<h2 className='text-5xl mt-20 text-left'>Other posts</h2>
+					<h2 className='text-5xl w-full text-center border-b mb-10 pb-5 mt-20'>Other posts</h2>
 					<div className=' my-10 grid grid-cols-5 w-full gap-6'>
-						{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, index) => (
+						{props.posts.map((_, index) => (
 							<PostCard key={index} content={props.mostRecent} />
 						))}
 					</div>
