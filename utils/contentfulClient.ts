@@ -15,6 +15,12 @@ export type TBlogPost = {
 	date: string;
 };
 
+export type TSummary = {
+	title: string;
+	author: string;
+	date: string;
+};
+
 const getPage = async (slug: string): Promise<TBlogPost> => {
 	const query = {
 		limit: 1,
@@ -30,6 +36,16 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 	return page.fields || { title: 'not found', slug: 'not found', article: 'not found' };
 };
 
+const getSummary = async (slugs: string[]) => {
+	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
+	return Promise.all(
+		slugs.map(async slug => {
+			const { title, author, date } = await getPage(slug);
+			return { title, author, date };
+		})
+	);
+};
+
 const getEntries = (): Promise<EntryCollection<unknown>> => {
 	return client.getEntries();
 };
@@ -38,6 +54,7 @@ const getSlugs = async (): Promise<string[]> => {
 	const query = {
 		locale: 'en-US',
 		content_type: 'blogPost',
+		limit: 10,
 	};
 
 	const { items } = await client.getEntries<TBlogPost>(query);
@@ -46,4 +63,4 @@ const getSlugs = async (): Promise<string[]> => {
 
 getSlugs();
 
-export { getPage, getEntries, getSlugs };
+export { getPage, getEntries, getSlugs, getSummary };

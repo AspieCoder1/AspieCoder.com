@@ -15,7 +15,7 @@ type Props = TBlogPost & {
 	readingTime: ReadTimeResults;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({ params }) => {
 	const fields = await getPage(params!.slug as string);
 	const timeToRead = readingTime(fields.article);
 	console.log(timeToRead);

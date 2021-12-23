@@ -1,8 +1,22 @@
-import type { NextPage } from 'next';
+import { getSlugs, getSummary, TSummary } from '@utils/contentfulClient';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 
-const Home: NextPage = () => {
+type Props = {
+	mostRecent: TSummary;
+	posts: TSummary[];
+};
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+	const slugs = await getSlugs();
+	const [mostRecent, ...posts] = await getSummary(slugs);
+	console.log(mostRecent);
+	console.log(posts);
+	return { props: { mostRecent, posts } };
+};
+
+const Home: NextPage<Props, {}> = props => {
 	return (
 		<div className='flex flex-col items-center justify-center min-h-screen py-2 bg-black text-white'>
 			<Head>
@@ -11,17 +25,7 @@ const Home: NextPage = () => {
 			</Head>
 
 			<main className='flex flex-col items-center justify-center w-full flex-1 px-20 text-center text-white'>
-				<h1 className='text-6xl font-bold'>
-					Welcome to{' '}
-					<a className='text-blue-600' href='https://nextjs.org'>
-						Next.js!
-					</a>
-				</h1>
-
-				<p className='mt-3 text-2xl'>
-					Get started by editing <code className='p-3 font-mono text-lg bg-gray-800 rounded-md'>pages/index.tsx</code>
-				</p>
-
+				<h1 className='text-6xl font-bold'>Welcome to my blog</h1>
 				<div className='flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full'>
 					<a
 						href='https://nextjs.org/docs'
