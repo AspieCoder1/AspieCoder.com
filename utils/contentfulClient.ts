@@ -19,6 +19,21 @@ export type TSummary = {
 	title: string;
 	author: string;
 	date: string;
+	slug: string;
+	excerpt: string;
+};
+
+const getMarkdownExcerpt = (markdown: string, maxExcerptLength = 120) => {
+	let contentText = markdown;
+	// Trim and normalize whitespace in content text
+	contentText = contentText.trim().replace(/\s+/g, ' ');
+	const excerpt = contentText.slice(0, maxExcerptLength);
+
+	if (contentText.length > maxExcerptLength) {
+		return excerpt + '...';
+	}
+
+	return excerpt;
 };
 
 const getPage = async (slug: string): Promise<TBlogPost> => {
@@ -40,8 +55,9 @@ const getSummary = async (slugs: string[]) => {
 	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
 	return Promise.all(
 		slugs.map(async slug => {
-			const { title, author, date } = await getPage(slug);
-			return { title, author, date };
+			const { title, author, date, article } = await getPage(slug);
+			const excerpt = getMarkdownExcerpt(article, 400);
+			return { title, author, date, slug, excerpt };
 		})
 	);
 };
