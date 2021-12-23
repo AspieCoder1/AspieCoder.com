@@ -15,6 +15,27 @@ export type TBlogPost = {
 	date: string;
 };
 
+export type TSummary = {
+	title: string;
+	author: string;
+	date: string;
+	slug: string;
+	excerpt: string;
+};
+
+const getMarkdownExcerpt = (markdown: string, maxExcerptLength = 120) => {
+	let contentText = markdown;
+	// Trim and normalize whitespace in content text
+	contentText = contentText.trim().replace(/\s+/g, ' ');
+	const excerpt = contentText.slice(0, maxExcerptLength);
+
+	if (contentText.length > maxExcerptLength) {
+		return excerpt + '...';
+	}
+
+	return excerpt;
+};
+
 const getPage = async (slug: string): Promise<TBlogPost> => {
 	const query = {
 		limit: 1,
@@ -30,6 +51,17 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 	return page.fields || { title: 'not found', slug: 'not found', article: 'not found' };
 };
 
+const getSummary = async (slugs: string[]) => {
+	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
+	return Promise.all(
+		slugs.map(async slug => {
+			const { title, author, date, article } = await getPage(slug);
+			const excerpt = getMarkdownExcerpt(article, 400);
+			return { title, author, date, slug, excerpt };
+		})
+	);
+};
+
 const getEntries = (): Promise<EntryCollection<unknown>> => {
 	return client.getEntries();
 };
@@ -38,6 +70,7 @@ const getSlugs = async (): Promise<string[]> => {
 	const query = {
 		locale: 'en-US',
 		content_type: 'blogPost',
+		limit: 10,
 	};
 
 	const { items } = await client.getEntries<TBlogPost>(query);
@@ -46,4 +79,4 @@ const getSlugs = async (): Promise<string[]> => {
 
 getSlugs();
 
-export { getPage, getEntries, getSlugs };
+export { getPage, getEntries, getSlugs, getSummary };

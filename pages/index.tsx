@@ -1,72 +1,67 @@
-import type { NextPage } from 'next';
+import MainCard from '@components/MainCard';
+import PostCard from '@components/PostCard';
+import { getSlugs, getSummary, TSummary } from '@utils/contentfulClient';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const Home: NextPage = () => {
+type Props = {
+	mostRecent: TSummary;
+	posts: TSummary[];
+};
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+	const slugs = await getSlugs();
+	const [mostRecent, ...posts] = await getSummary(slugs);
+	console.log(mostRecent);
+	console.log(posts);
+	return { props: { mostRecent, posts } };
+};
+
+const Home: NextPage<Props, {}> = props => {
 	return (
-		<div className='flex flex-col items-center justify-center min-h-screen py-2 bg-black text-white'>
+		<div className='flex flex-col min-h-screen py-2 bg-black text-white '>
 			<Head>
-				<title>Create Next App</title>
+				<title>AspieCoder.com</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<main className='flex flex-col items-center justify-center w-full flex-1 px-20 text-center text-white'>
-				<h1 className='text-6xl font-bold'>
-					Welcome to{' '}
-					<a className='text-blue-600' href='https://nextjs.org'>
-						Next.js!
-					</a>
-				</h1>
-
-				<p className='mt-3 text-2xl'>
-					Get started by editing <code className='p-3 font-mono text-lg bg-gray-800 rounded-md'>pages/index.tsx</code>
-				</p>
-
-				<div className='flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full'>
+			<div className='flex flex-col mx-20 min-h-screen'>
+				<header className='flex justify-between '>
+					<div className='flex' id='logo'>
+						<p>AspieCoder.com</p>
+					</div>
+					<div>
+						<Link href='/search' passHref>
+							<a className='text-lg'>Blog</a>
+						</Link>
+					</div>
+				</header>
+				<main className='flex flex-col items-center justify-center w-full flex-1 mt-2 text-white mx-30'>
+					<div className='flex-1 text-center my-60'>
+						<h1 className='text-9xl mb-10'>AspieCoder.com</h1>
+						<h2 className='text-7xl'>Welcome to the site!</h2>
+					</div>
+					{props.mostRecent && <MainCard content={props.mostRecent} />}
+					<h2 className='text-5xl w-full text-center border-b mb-10 pb-5 mt-20'>Other posts</h2>
+					<div className=' my-10 grid grid-cols-5 w-full gap-6'>
+						{props.posts.map((_, index) => (
+							<PostCard key={index} content={props.mostRecent} />
+						))}
+					</div>
+				</main>
+				<footer className='flex items-center justify-center w-full h-24 border-t'>
 					<a
-						href='https://nextjs.org/docs'
-						className='p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600'
+						className='flex items-center justify-center'
+						href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
+						target='_blank'
+						rel='noopener noreferrer'
 					>
-						<h3 className='text-2xl font-bold'>Documentation &rarr;</h3>
-						<p className='mt-4 text-xl'>Find in-depth information about Next.js features and API.</p>
+						Powered by <Image src='/vercel.svg' alt='Vercel Logo' className='h-4 ml-2' width={72} height={16} />
 					</a>
-
-					<a
-						href='https://nextjs.org/learn'
-						className='p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600'
-					>
-						<h3 className='text-2xl font-bold'>Learn &rarr;</h3>
-						<p className='mt-4 text-xl'>Learn about Next.js in an interactive course with quizzes!</p>
-					</a>
-
-					<a
-						href='https://github.com/vercel/next.js/tree/master/examples'
-						className='p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600'
-					>
-						<h3 className='text-2xl font-bold'>Examples &rarr;</h3>
-						<p className='mt-4 text-xl'>Discover and deploy boilerplate example Next.js projects.</p>
-					</a>
-
-					<a
-						href='https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-						className='p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600'
-					>
-						<h3 className='text-2xl font-bold'>Deploy &rarr;</h3>
-						<p className='mt-4 text-xl'>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-					</a>
-				</div>
-			</main>
-
-			<footer className='flex items-center justify-center w-full h-24 border-t'>
-				<a
-					className='flex items-center justify-center'
-					href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-					target='_blank'
-					rel='noopener noreferrer'
-				>
-					Powered by <Image src='/vercel.svg' alt='Vercel Logo' className='h-4 ml-2' width={72} height={16} />
-				</a>
-			</footer>
+				</footer>
+			</div>
 		</div>
 	);
 };
