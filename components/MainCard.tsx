@@ -11,12 +11,12 @@ const MainCard = (props: Props) => {
 		<div className='card'>
 			<Link href={`posts/${slug}`} passHref>
 				<a>
-					<h1 className='text-6xl text-bold text-left'>{title}</h1>
+					<h1 className='md:text-6xl text-xl text-bold text-left'>{title}</h1>
 					<div className='flex'>
-						<p className='text-xl text-left'>{author}</p>
-						<p className='text-xl text-left ml-4'>{date}</p>
+						<p className='md:text-xl text-lg text-left'>{author}</p>
+						<p className='md:text-xl text-lg text-left ml-4'>{date}</p>
 					</div>
-					<p className='text-lg mt-2'>{excerpt}</p>
+					<p className='md:text-lg mt-2'>{excerpt}</p>
 				</a>
 			</Link>
 		</div>

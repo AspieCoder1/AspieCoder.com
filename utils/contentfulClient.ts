@@ -24,9 +24,8 @@ export type TSummary = {
 };
 
 const getMarkdownExcerpt = (markdown: string, maxExcerptLength = 120) => {
-	let contentText = markdown;
 	// Trim and normalize whitespace in content text
-	contentText = contentText.trim().replace(/\s+/g, ' ');
+	const contentText = markdown.trim().replace(/\s+/g, ' ');
 	const excerpt = contentText.slice(0, maxExcerptLength);
 
 	if (contentText.length > maxExcerptLength) {
@@ -76,7 +75,5 @@ const getSlugs = async (): Promise<string[]> => {
 	const { items } = await client.getEntries<TBlogPost>(query);
 	return items.map(item => item.fields.slug);
 };
-
-getSlugs();
 
 export { getPage, getEntries, getSlugs, getSummary };
