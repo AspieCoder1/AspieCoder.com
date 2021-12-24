@@ -64,7 +64,7 @@ const Posts: NextPage<Props, {}> = props => {
 						),
 						ul: ({ children }) => <ul className='list-disc list-inside mb-4'>{children}</ul>,
 					}}
-					plugins={[remarkGfm]}
+					remarkPlugins={[remarkGfm]}
 				>
 					{props.article}
 				</ReactMarkdown>
