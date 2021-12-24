@@ -14,8 +14,6 @@ type Props = {
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	const slugs = await getSlugs();
 	const [mostRecent, ...posts] = await getSummary(slugs);
-	console.log(mostRecent);
-	console.log(posts);
 	return { props: { mostRecent, posts } };
 };
 
