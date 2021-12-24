@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 
 const Home: NextPage<Props, {}> = props => {
 	return (
-		<div className='flex flex-col min-h-screen py-2 bg-black text-white '>
+		<div className='flex flex-col min-h-screen py-4 bg-black text-white '>
 			<Head>
 				<title>AspieCoder.com</title>
 				<link rel='icon' href='/favicon.ico' />
@@ -32,7 +32,7 @@ const Home: NextPage<Props, {}> = props => {
 					</div>
 					<div>
 						<Link href='/search' passHref>
-							<a className='text-lg'>Blog</a>
+							<a className='text-xl text-bold'>Blog</a>
 						</Link>
 					</div>
 				</header>
