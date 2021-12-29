@@ -1,8 +1,8 @@
-import {GetServerSideProps, NextPage} from 'next';
+import {GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage} from 'next';
 import Image from "next/image";
 import remarkGfm from 'remark-gfm';
 
-import {getPage, TBlogPost} from '@utils/contentfulClient';
+import {getPage, getSlugs, TBlogPost} from '@utils/contentfulClient';
 import ReactMarkdown from 'react-markdown';
 
 import readingTime, {ReadTimeResults} from 'reading-time';
@@ -16,7 +16,16 @@ type Props = TBlogPost & {
     readingTime: ReadTimeResults;
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({params}) => {
+type Params = {
+	slug: string;
+}
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+	const slugs = await getSlugs();
+	return {paths: slugs.map((slug) =>({params:{slug}})), fallback: true};
+}
+
+export const getStaticProps: GetStaticProps<Params> = async ({params}) => {
     const fields = await getPage(params!.slug as string);
     const timeToRead = readingTime(fields.article);
     return {props: {...fields, readingTime: timeToRead}};
