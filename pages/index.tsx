@@ -43,6 +43,7 @@ const Home: NextPage<Props, {}> = props => {
 					</div>
 					{props.mostRecent && <MainCard content={props.mostRecent} />}
 					<h2 className='md:text-5xl text-xl w-full text-center border-b md:mb-10 md:pb-5 md:mt-20 mb-5 pb-2 mt-10'>Other posts</h2>
+
 					<div className=' my-10 grid md:grid-cols-5 grid-cols-1 w-full gap-6'>
 						{props.posts.map((_, index) => (
 							<PostCard key={index} content={props.mostRecent} />
