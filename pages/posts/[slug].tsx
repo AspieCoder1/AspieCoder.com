@@ -23,7 +23,7 @@ interface Params extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
     const slugs = await getSlugs();
-    return {paths: slugs.map((slug) => ({params: {slug}})), fallback: true};
+    return {paths: slugs.map((slug) => ({params: {slug}})), fallback: false};
 }
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
