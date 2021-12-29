@@ -29,7 +29,6 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
     const {slug} = params as Params;
     const fields = await getPage(slug);
-    console.log(fields);
     const timeToRead = readingTime(fields.article);
     return {props: {...fields, readingTime: timeToRead}};
 };
@@ -76,7 +75,7 @@ const Posts: NextPage<Props, {}> = props => {
                         img: ({src, alt}) => {
                             const title = alt ?? ''
                             const [name, dimensions] = title.split('(');
-                            const [width, height] = dimensions.trim().replaceAll(')', '')
+                            const [width, height] = dimensions?.trim()?.replaceAll(')', '')
                                 .split('x').map(val => Number(val));
 
                             const imageWidth = width < 1024 ? width : 1024;
