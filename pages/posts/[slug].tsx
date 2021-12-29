@@ -11,12 +11,13 @@ import Header from '@components/Header';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {materialDark} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import Head from 'next/head';
+import {ParsedUrlQuery} from "querystring";
 
 type Props = TBlogPost & {
     readingTime: ReadTimeResults;
 };
 
-type Params = {
+interface Params extends ParsedUrlQuery {
     slug: string;
 }
 
@@ -25,9 +26,10 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
     return {paths: slugs.map((slug) => ({params: {slug}})), fallback: true};
 }
 
-export const getStaticProps: GetStaticProps<{}, Params, {}> = async ({params}) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
     const {slug} = params as Params;
     const fields = await getPage(slug);
+    console.log(fields);
     const timeToRead = readingTime(fields.article);
     return {props: {...fields, readingTime: timeToRead}};
 };
