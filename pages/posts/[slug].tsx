@@ -74,6 +74,7 @@ const Posts: NextPage<Props, {}> = props => {
                         },
                         img: ({src, alt}) => {
                             const title = alt ?? ''
+                            console.log(alt);
                             const [name, dimensions] = title.split('(');
                             const [width, height] = dimensions?.trim()?.replaceAll(')', '')
                                 .split('x').map(val => Number(val));
