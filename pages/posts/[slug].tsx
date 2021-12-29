@@ -1,4 +1,4 @@
-import {GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage} from 'next';
+import {GetStaticPaths, GetStaticProps, NextPage} from 'next';
 import Image from "next/image";
 import remarkGfm from 'remark-gfm';
 
@@ -17,12 +17,12 @@ type Props = TBlogPost & {
 };
 
 type Params = {
-	slug: string;
+    slug: string;
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-	const slugs = await getSlugs();
-	return {paths: slugs.map((slug) =>({params:{slug}})), fallback: true};
+    const slugs = await getSlugs();
+    return {paths: slugs.map((slug) => ({params: {slug}})), fallback: true};
 }
 
 export const getStaticProps: GetStaticProps<Params> = async ({params}) => {
@@ -74,12 +74,13 @@ const Posts: NextPage<Props, {}> = props => {
                             const title = alt ?? ''
                             const [name, dimensions] = title.split('(');
                             const [width, height] = dimensions.trim().replaceAll(')', '')
-								.split('x').map(val => Number(val));
+                                .split('x').map(val => Number(val));
 
-							const imageWidth = width < 1024 ? width :  1024;
-							const imageHeight = height * (imageWidth / width);
+                            const imageWidth = width < 1024 ? width : 1024;
+                            const imageHeight = height * (imageWidth / width);
                             return (
-                                <Image className='mx-auto max-w-full h-auto mb-4 mt-4' src={src ?? ''} alt={name.trim()} width={imageWidth} height={imageHeight}/>
+                                <Image className='mx-auto max-w-full h-auto mb-4 mt-4' src={src ?? ''} alt={name.trim()}
+                                       width={imageWidth} height={imageHeight}/>
                             )
                         },
                         ul: ({children}) => <ul className='list-disc list-inside mb-4'>{children}</ul>,
