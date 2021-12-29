@@ -66,8 +66,11 @@ const Posts: NextPage<Props, {}> = props => {
                             const [name, dimensions] = title.split('(');
                             const [width, height] = dimensions.trim().replaceAll(')', '')
 								.split('x').map(val => Number(val));
+
+							const imageWidth = width < 1024 ? width :  1024;
+							const imageHeight = height * (imageWidth / width);
                             return (
-                                <Image className='mx-auto max-w-full h-auto mb-4 mt-4' src={src ?? ''} alt={name.trim()} width={width} height={height} />
+                                <Image className='mx-auto max-w-full h-auto mb-4 mt-4' src={src ?? ''} alt={name.trim()} width={imageWidth} height={imageHeight}/>
                             )
                         },
                         ul: ({children}) => <ul className='list-disc list-inside mb-4'>{children}</ul>,
