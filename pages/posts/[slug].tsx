@@ -76,7 +76,7 @@ const Posts: NextPage<Props, {}> = props => {
                             const title = alt ?? ''
                             console.log(alt);
                             const [name, dimensions] = title.split('(');
-                            const [width, height] = dimensions?.trim()?.replaceAll(')', '')
+                            const [width, height] = dimensions.trim().replace(/\(\)/g, '')
                                 .split('x').map(val => Number(val));
 
                             const imageWidth = width < 1024 ? width : 1024;
