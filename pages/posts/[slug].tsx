@@ -25,8 +25,9 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
     return {paths: slugs.map((slug) => ({params: {slug}})), fallback: true};
 }
 
-export const getStaticProps: GetStaticProps<Params> = async ({params}) => {
-    const fields = await getPage(params!.slug as string);
+export const getStaticProps: GetStaticProps<{}, Params, {}> = async ({params}) => {
+    const {slug} = params as Params;
+    const fields = await getPage(slug);
     const timeToRead = readingTime(fields.article);
     return {props: {...fields, readingTime: timeToRead}};
 };
