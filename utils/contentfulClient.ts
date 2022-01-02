@@ -1,4 +1,4 @@
-import { createClient, EntryCollection } from 'contentful';
+import {createClient, Entry, EntryCollection} from 'contentful';
 
 const { CF_SPACE_ID, CF_DELIVERY_ACCESS_TOKEN } = process.env;
 
@@ -50,19 +50,25 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 	return page.fields || { title: 'not found', slug: 'not found', article: 'not found' };
 };
 
-const getSummary = async (slugs: string[]) => {
-	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
-	return Promise.all(
-		slugs.map(async slug => {
-			const { title, author, date, article } = await getPage(slug);
-			const excerpt = getMarkdownExcerpt(article, 400);
-			return { title, author, date, slug, excerpt };
-		})
-	);
-};
+const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
+	const query = {
+		locale: 'en-US',
+		content_type: 'blogPost',
+		limit: 10,
+	};
 
-const getEntries = (): Promise<EntryCollection<unknown>> => {
-	return client.getEntries();
+	const {items} = await client.getEntries<TBlogPost>(query);
+	return items;
+}
+
+
+const getSummary = async (): Promise<TSummary[]> => {
+	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
+	const pages = await getSummaryPages();
+	return pages.map((page) => {
+		const {article, ...fields} = page.fields;
+		return {...fields, excerpt: getMarkdownExcerpt(article, 400)}
+	});
 };
 
 const getSlugs = async (): Promise<string[]> => {
@@ -76,4 +82,4 @@ const getSlugs = async (): Promise<string[]> => {
 	return items.map(item => item.fields.slug);
 };
 
-export { getPage, getEntries, getSlugs, getSummary };
+export { getPage, getSlugs, getSummary };
