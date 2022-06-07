@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2022. AspieCoder
+ */
+
 import dayjs from 'dayjs';
 
 type Props = {

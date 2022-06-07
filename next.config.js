@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2022. AspieCoder
+ */
+
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,

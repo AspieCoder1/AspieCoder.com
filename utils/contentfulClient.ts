@@ -1,4 +1,8 @@
-import {createClient, Entry, EntryCollection} from 'contentful';
+/*
+ * Copyright (c) 2022. AspieCoder
+ */
+
+import { createClient, Entry } from 'contentful';
 
 const { CF_SPACE_ID, CF_DELIVERY_ACCESS_TOKEN } = process.env;
 
@@ -42,7 +46,6 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 		locale: 'en-US',
 		'fields.slug': slug,
 		content_type: 'blogPost',
-		// 'fields.content.sys.contentType.sys.id': params.pageContentType,
 	};
 	const {
 		items: [page],
@@ -57,17 +60,17 @@ const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
 		limit: 10,
 	};
 
-	const {items} = await client.getEntries<TBlogPost>(query);
+	const { items } = await client.getEntries<TBlogPost>(query);
 	return items;
-}
+};
 
 
 const getSummary = async (): Promise<TSummary[]> => {
 	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
 	const pages = await getSummaryPages();
 	return pages.map((page) => {
-		const {article, ...fields} = page.fields;
-		return {...fields, excerpt: getMarkdownExcerpt(article, 400)}
+		const { article, ...fields } = page.fields;
+		return { ...fields, excerpt: getMarkdownExcerpt(article, 400) };
 	});
 };
 

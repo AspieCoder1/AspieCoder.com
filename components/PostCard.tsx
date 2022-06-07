@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2022. AspieCoder
+ */
+
 import { TSummary } from '@utils/contentfulClient';
 import Link from 'next/link';
 
