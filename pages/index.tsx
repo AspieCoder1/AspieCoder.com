@@ -7,8 +7,8 @@ import PostCard from '@components/PostCard';
 import { getSummary, TSummary } from '@utils/contentfulClient';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
+import { Footer } from '@components/Footer';
 
 type Props = {
 	mostRecent: TSummary;
@@ -22,12 +22,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 
 const Home: NextPage<Props, {}> = (props) => {
 	return (
-		<div className="flex flex-col min-h-screen py-4 bg-black text-white ">
+		<div className="flex flex-col min-h-screen py-4 bg-black text-white">
 			<Head>
 				<title>AspieCoder.com</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
 			<div className="flex flex-col md:mx-20 mx-4 min-h-screen">
 				<header className="flex justify-between ">
 					<div className="flex" id="logo">
@@ -39,7 +38,7 @@ const Home: NextPage<Props, {}> = (props) => {
 						</Link>
 					</div>
 				</header>
-				<main className="flex flex-col items-center justify-center w-full flex-1 mt-2 text-white mx-30">
+				<main className="flex flex-col items-center justify-center w-full flex-1 mt-2 mx-30">
 					<div className="flex-1 text-center md:my-60 my-10">
 						<h1 className="md:text-9xl text-4xl md:mb-10 mb-5">
 							AspieCoder.com
@@ -57,23 +56,7 @@ const Home: NextPage<Props, {}> = (props) => {
 						))}
 					</div>
 				</main>
-				<footer className="flex items-center justify-center w-full h-24 border-t">
-					<a
-						className="flex items-center justify-center"
-						href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Powered by{' '}
-						<Image
-							src="/vercel.svg"
-							alt="Vercel Logo"
-							className="h-4 ml-2"
-							width={72}
-							height={16}
-						/>
-					</a>
-				</footer>
+				<Footer />
 			</div>
 		</div>
 	);

@@ -4,6 +4,7 @@
 
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
+import remarkUnwrapImages from 'remark-unwrap-images';
 import remarkGfm from 'remark-gfm';
 
 import { getPage, getSlugs, TBlogPost } from '@utils/contentfulClient';
@@ -55,16 +56,9 @@ const Posts: NextPage<Props, {}> = (props) => {
 				readingTime={props.readingTime.text}
 				author={props.author}
 			/>
-			<article className="lg:prose-xl">
+			<article className="lg:mx-auto prose md:prose-lg lg:prose-xl mt-8 md:mt-16 lg:max-w-screen-lg max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
 				<ReactMarkdown
-					className="mt-16 lg:max-w-screen-lg lg:mx-auto max-w-screen-md mr-4 ml-4 text-lg lg:pr-4 lg:pl-4"
 					components={{
-						// h1: ({ children, ...h1Props }) => (
-						// 	<h1 className='text-3xl font-bold mb-4' {...h1Props}>
-						// 		{children}
-						// 	</h1>
-						// ),
-						// p: ({ children }) => <p className='mb-4'>{children}</p>,
 						code: ({ inline, className, children, ...codeProps }) => {
 							const match = /language-(\w+)/.exec(className || '');
 							return !inline && match ? (
@@ -78,15 +72,18 @@ const Posts: NextPage<Props, {}> = (props) => {
 										margin: 0,
 									}}
 									codeTagProps={{
-										className: '',
+										style: {
+											backgroundColor: 'transparent',
+										},
 									}}
-									pretag="div"
 								>
 									{String(children).replace(/\n$/, '')}
 								</SyntaxHighlighter>
 							) : (
 								<code
-									className={`${className} pl-1 pr-1 font-mono text-lg bg-gray-200 rounded-md`}
+									className={`${
+										className ?? ''
+									} pl-1 pr-1 font-mono font-normal bg-gray-200 rounded-md`}
 									{...codeProps}
 								>
 									{children}
@@ -104,23 +101,22 @@ const Posts: NextPage<Props, {}> = (props) => {
 							const imageWidth = width < 1024 ? width : 1024;
 							const imageHeight = height * (imageWidth / width);
 							return (
-								<Image
-									className="mx-auto flex items-center justify-center"
-									src={src ?? ''}
-									alt={name.trim()}
-									layout="intrinsic"
-									width={imageWidth}
-									height={imageHeight}
-									placeholder="blur"
-									blurDataURL={src ?? ''}
-								/>
+								<div className="flex justify-center">
+									<Image
+										className="mx-auto"
+										src={src ?? ''}
+										alt={name.trim()}
+										layout="intrinsic"
+										width={imageWidth}
+										height={imageHeight}
+										placeholder="blur"
+										blurDataURL={src ?? ''}
+									/>
+								</div>
 							);
 						},
-						ul: ({ children }) => (
-							<ul className="list-disc list-inside mb-4">{children}</ul>
-						),
 					}}
-					remarkPlugins={[remarkGfm]}
+					remarkPlugins={[remarkGfm, remarkUnwrapImages]}
 				>
 					{props.article}
 				</ReactMarkdown>
