@@ -50,7 +50,13 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 	const {
 		items: [page],
 	} = await client.getEntries<TBlogPost>(query);
-	return page.fields || { title: 'not found', slug: 'not found', article: 'not found' };
+	return (
+		page.fields || {
+			title: 'not found',
+			slug: 'not found',
+			article: 'not found',
+		}
+	);
 };
 
 const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
@@ -63,7 +69,6 @@ const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
 	const { items } = await client.getEntries<TBlogPost>(query);
 	return items;
 };
-
 
 const getSummary = async (): Promise<TSummary[]> => {
 	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
@@ -82,7 +87,7 @@ const getSlugs = async (): Promise<string[]> => {
 	};
 
 	const { items } = await client.getEntries<TBlogPost>(query);
-	return items.map(item => item.fields.slug);
+	return items.map((item) => item.fields.slug);
 };
 
 export { getPage, getSlugs, getSummary };

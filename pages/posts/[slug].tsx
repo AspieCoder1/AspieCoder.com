@@ -13,7 +13,10 @@ import readingTime, { ReadTimeResults } from 'reading-time';
 
 import Header from '@components/Header';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import {
+	// materialDark,
+	materialLight,
+} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -27,7 +30,10 @@ interface Params extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
 	const slugs = await getSlugs();
-	return { paths: slugs.map((slug) => ({ params: { slug } })), fallback: false };
+	return {
+		paths: slugs.map((slug) => ({ params: { slug } })),
+		fallback: false,
+	};
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -37,41 +43,52 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	return { props: { ...fields, readingTime: timeToRead } };
 };
 
-const Posts: NextPage<Props, {}> = props => {
+const Posts: NextPage<Props, {}> = (props) => {
 	return (
-		<div className='flex flex-col min-h-screen'>
+		<div className="flex flex-col min-h-screen">
 			<Head>
 				<title>{props.title}</title>
 			</Head>
-			<Header title={props.title} date={props.date} readingTime={props.readingTime.text} author={props.author} />
-			<article className='bg-gray-900 text-white grow'>
+			<Header
+				title={props.title}
+				date={props.date}
+				readingTime={props.readingTime.text}
+				author={props.author}
+			/>
+			<article className="lg:prose-xl">
 				<ReactMarkdown
-					className='mt-16 lg:max-w-screen-lg lg:mx-auto max-w-screen-md mr-4 ml-4 text-lg lg:pr-4 lg:pl-4'
+					className="mt-16 lg:max-w-screen-lg lg:mx-auto max-w-screen-md mr-4 ml-4 text-lg lg:pr-4 lg:pl-4"
 					components={{
-						h1: ({ children, ...h1Props }) => (
-							<h1 className='text-3xl font-bold mb-4' {...h1Props}>
-								{children}
-							</h1>
-						),
-						p: ({ children }) => <p className='mb-4'>{children}</p>,
+						// h1: ({ children, ...h1Props }) => (
+						// 	<h1 className='text-3xl font-bold mb-4' {...h1Props}>
+						// 		{children}
+						// 	</h1>
+						// ),
+						// p: ({ children }) => <p className='mb-4'>{children}</p>,
 						code: ({ inline, className, children, ...codeProps }) => {
 							const match = /language-(\w+)/.exec(className || '');
 							return !inline && match ? (
 								<SyntaxHighlighter
-									style={materialDark}
+									style={materialLight}
 									language={match[1]}
 									wrapLongLines
-									customStyle={{ backgroundColor: 'transparent', padding: 0, margin: 0 }}
+									customStyle={{
+										backgroundColor: 'transparent',
+										padding: 0,
+										margin: 0,
+									}}
 									codeTagProps={{
 										className: '',
 									}}
-									preTag='div'
+									pretag="div"
 								>
 									{String(children).replace(/\n$/, '')}
 								</SyntaxHighlighter>
 							) : (
 								<code
-									className={`${className} pl-1 pr-1 font-mono text-lg bg-gray-800 rounded-md`} {...codeProps}>
+									className={`${className} pl-1 pr-1 font-mono text-lg bg-gray-200 rounded-md`}
+									{...codeProps}
+								>
 									{children}
 								</code>
 							);
@@ -79,16 +96,29 @@ const Posts: NextPage<Props, {}> = props => {
 						img: ({ src, alt }) => {
 							const title = alt ?? '';
 							const [name, dimensions] = title.split('(');
-							const [width, height] = dimensions.trim().replace(/[()]/g, '')
-								.split('x').map(val => Number(val));
+							const [width, height] = dimensions
+								.trim()
+								.replace(/[()]/g, '')
+								.split('x')
+								.map((val) => Number(val));
 							const imageWidth = width < 1024 ? width : 1024;
 							const imageHeight = height * (imageWidth / width);
 							return (
-								<Image className='mx-auto max-w-full h-auto mb-4 mt-4' src={src ?? ''} alt={name.trim()}
-											 width={imageWidth} height={imageHeight} />
+								<Image
+									className="mx-auto flex items-center justify-center"
+									src={src ?? ''}
+									alt={name.trim()}
+									layout="intrinsic"
+									width={imageWidth}
+									height={imageHeight}
+									placeholder="blur"
+									blurDataURL={src ?? ''}
+								/>
 							);
 						},
-						ul: ({ children }) => <ul className='list-disc list-inside mb-4'>{children}</ul>,
+						ul: ({ children }) => (
+							<ul className="list-disc list-inside mb-4">{children}</ul>
+						),
 					}}
 					remarkPlugins={[remarkGfm]}
 				>

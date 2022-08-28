@@ -12,15 +12,15 @@ type Props = {
 const MainCard = (props: Props) => {
 	const { title, author, date, slug, excerpt } = props.content;
 	return (
-		<div className='card'>
+		<div className="card">
 			<Link href={`posts/${slug}`} passHref>
 				<a>
-					<h1 className='md:text-6xl text-xl text-bold text-left'>{title}</h1>
-					<div className='flex'>
-						<p className='md:text-xl text-lg text-left'>{author}</p>
-						<p className='md:text-xl text-lg text-left ml-4'>{date}</p>
+					<h1 className="md:text-6xl text-xl text-bold text-left">{title}</h1>
+					<div className="flex">
+						<p className="md:text-xl text-lg text-left">{author}</p>
+						<p className="md:text-xl text-lg text-left ml-4">{date}</p>
 					</div>
-					<p className='md:text-lg mt-2'>{excerpt}</p>
+					<p className="md:text-lg mt-2">{excerpt}</p>
 				</a>
 			</Link>
 		</div>

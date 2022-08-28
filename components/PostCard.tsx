@@ -15,12 +15,12 @@ const PostCard = (props: Props) => {
 		<div>
 			<Link href={`posts/${slug}`} passHref>
 				<a>
-					<h1 className='text-4xl text-bold text-left'>{title}</h1>
-					<div className='flex'>
-						<p className='text-lg text-left'>{author}</p>
-						<p className='text-lg text-left ml-4'>{date}</p>
+					<h1 className="text-4xl text-bold text-left">{title}</h1>
+					<div className="flex">
+						<p className="text-lg text-left">{author}</p>
+						<p className="text-lg text-left ml-4">{date}</p>
 					</div>
-					<p className='mt-2'>{excerpt}</p>
+					<p className="mt-2">{excerpt}</p>
 				</a>
 			</Link>
 		</div>
