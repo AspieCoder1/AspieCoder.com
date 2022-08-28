@@ -4,10 +4,12 @@
 
 import dayjs from 'dayjs';
 
-export const Footer = (): JSX.Element => {
+const Footer = (): JSX.Element => {
 	return (
-		<footer className="flex items-center justify-center w-full h-24 border-t">
+		<footer className="flex items-center justify-center w-full h-24 border-t bg-white">
 			<p>&copy;{dayjs().year()} Luke Braithwaite</p>
 		</footer>
 	);
 };
+
+export default Footer;
