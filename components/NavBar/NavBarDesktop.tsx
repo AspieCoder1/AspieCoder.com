@@ -8,7 +8,7 @@ import * as React from 'react';
 const NavBarDesktop = (): JSX.Element => {
 	return (
 		<div className="grid grid-rows-1 grid-flow-col gap-20">
-			<Link href="/pages/blog" passHref>
+			<Link href="/blog" passHref>
 				<a className="text-xl text-bold">Blog</a>
 			</Link>
 			<Link href="/about" passHref>
