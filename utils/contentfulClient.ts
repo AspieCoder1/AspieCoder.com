@@ -17,6 +17,7 @@ export type TBlogPost = {
 	article: string;
 	author: string;
 	date: string;
+	excerpt: string;
 };
 
 export type TSummary = {
@@ -51,7 +52,7 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 		items: [page],
 	} = await client.getEntries<TBlogPost>(query);
 	return (
-		page.fields || {
+		{ ...page.fields, excerpt: getMarkdownExcerpt(page.fields.article) } || {
 			title: 'not found',
 			slug: 'not found',
 			article: 'not found',

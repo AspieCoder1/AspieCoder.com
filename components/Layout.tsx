@@ -15,7 +15,7 @@ const Layout = ({ children, displayFooter = true }: Props): JSX.Element => {
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col m-0">
 			<NavBar />
-			<div className="flex-1 m-0 flex">{children}</div>
+			<div className="flex-1 m-0 flex flex-col">{children}</div>
 			{displayFooter && <Footer />}
 		</div>
 	);

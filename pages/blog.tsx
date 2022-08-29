@@ -26,7 +26,7 @@ const Blog: NextPage<Props, {}> = (props): JSX.Element => {
 				<h2 className="md:text-5xl text-xl w-full text-center border-b md:mb-5 md:pb-5 md:mt-20 mb-5 pb-2 mt-10">
 					Other posts
 				</h2>
-				<div className="mt-4 grid md:grid-cols-3 grid-cols-1 w-full gap-6 mb-10">
+				<div className="mt-4 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-6 mb-10">
 					{Array(6)
 						.fill(props.mostRecent)
 						.map((_, index) => (

@@ -15,7 +15,6 @@ const config = resolveConfig(tailwindConfig);
 const NavBar = (): JSX.Element => {
 	//@ts-ignore
 	const query = `(min-width: ${config.theme?.screens?.lg})`;
-	console.log(query);
 
 	const matches = useMediaQuery({
 		query,
@@ -27,7 +26,8 @@ const NavBar = (): JSX.Element => {
 					<a>AspieCoder.com</a>
 				</Link>
 			</div>
-			{matches ? <NavBarDesktop /> : <NavBarMobile />}
+			{matches && <NavBarDesktop key="desktop-menu" />}
+			{!matches && <NavBarMobile key="mobile-menu" />}
 		</nav>
 	);
 };
