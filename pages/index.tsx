@@ -17,12 +17,12 @@ const Home: NextPage<{}, {}> = () => {
 			</Head>
 			<Layout displayFooter={false}>
 				<main className="flex-1 flex text-center bg-black text-white items-center flex-col justify-center">
-					<h1 className="lg:text-9xl md:text-7xl text-4xl md:mb-10 mb-5">
+					<h1 className="lg:text-9xl md:text-7xl text-4xl md:mb-10 mb-5 font-mono">
 						AspieCoder.com
 					</h1>
-					<h2 className="lg:text-7xl md:text-4xl text-2xl">
-						Welcome to the site!
-					</h2>
+					{/*<h2 className="lg:text-7xl md:text-4xl text-2xl">*/}
+					{/*	Welcome to the site!*/}
+					{/*</h2>*/}
 					<div className="mt-10 flex mx-auto grid grid-rows-1 grid-flow-col gap-5">
 						<a href="https://github.com/AspieCoder1">
 							<Image

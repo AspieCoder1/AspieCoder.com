@@ -20,10 +20,10 @@ const NavBar = (): JSX.Element => {
 		query,
 	});
 	return (
-		<nav className="sticky top-0 z-50 flex items-center justify-between md:px-20 px-4 py-5 bg-black text-white pt-4 w-full">
+		<nav className="sticky top-0 z-50 flex items-center justify-between md:px-20 px-4 py-5 bg-black text-white pt-4 w-full drop-shadow-md">
 			<div>
 				<Link href="/" passHref>
-					<a>AspieCoder.com</a>
+					<a className="font-mono">AspieCoder.com</a>
 				</Link>
 			</div>
 			{matches && <NavBarDesktop key="desktop-menu" />}

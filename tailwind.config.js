@@ -9,7 +9,7 @@ module.exports = {
 	],
 	theme: {
 		extend: {
-			typography: {
+			typography: ({ theme }) => ({
 				DEFAULT: {
 					css: {
 						'code::before': {
@@ -26,9 +26,20 @@ module.exports = {
 							marginTop: 0,
 							marginBottom: 0.5,
 						},
+						'blockquote p:first-of-type::before': {
+							content: '',
+						},
+						'blockquote p:last-of-type::after': {
+							content: '',
+						},
 					},
 				},
-			},
+				gray: {
+					css: {
+						'--tw-prose-quote-borders': theme('colors.gray[400]'),
+					},
+				},
+			}),
 		},
 	},
 	plugins: [require('@tailwindcss/typography')],

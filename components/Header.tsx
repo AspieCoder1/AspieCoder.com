@@ -13,7 +13,7 @@ type Props = {
 
 const Header = (props: Props) => {
 	return (
-		<header className="pt-32 pb-16 md:pt-64 md:pb-32 bg-black w-full text-center text-white">
+		<header className="pt-32 pb-16 md:pt-64 md:pb-32 bg-black w-full text-center text-white drop-shadow-md">
 			<h1 className=" text-lg md:text-6xl font-bold text-white">
 				{props.title}
 			</h1>
