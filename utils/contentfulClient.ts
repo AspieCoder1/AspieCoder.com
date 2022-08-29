@@ -1,4 +1,8 @@
-import {createClient, Entry, EntryCollection} from 'contentful';
+/*
+ * Copyright (c) 2022. AspieCoder
+ */
+
+import { createClient, Entry } from 'contentful';
 
 const { CF_SPACE_ID, CF_DELIVERY_ACCESS_TOKEN } = process.env;
 
@@ -13,26 +17,8 @@ export type TBlogPost = {
 	article: string;
 	author: string;
 	date: string;
-};
-
-export type TSummary = {
-	title: string;
-	author: string;
-	date: string;
-	slug: string;
-	excerpt: string;
-};
-
-const getMarkdownExcerpt = (markdown: string, maxExcerptLength = 120) => {
-	// Trim and normalize whitespace in content text
-	const contentText = markdown.trim().replace(/\s+/g, ' ');
-	const excerpt = contentText.slice(0, maxExcerptLength);
-
-	if (contentText.length > maxExcerptLength) {
-		return excerpt + '...';
-	}
-
-	return excerpt;
+	summary: string;
+	tags: string[];
 };
 
 const getPage = async (slug: string): Promise<TBlogPost> => {
@@ -42,12 +28,18 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 		locale: 'en-US',
 		'fields.slug': slug,
 		content_type: 'blogPost',
-		// 'fields.content.sys.contentType.sys.id': params.pageContentType,
 	};
 	const {
-		items: [page],
+		items: [{ fields }],
 	} = await client.getEntries<TBlogPost>(query);
-	return page.fields || { title: 'not found', slug: 'not found', article: 'not found' };
+	return (
+		fields || {
+			title: 'not found',
+			slug: 'not found',
+			article: 'not found',
+			summary: 'not found',
+		}
+	);
 };
 
 const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
@@ -57,18 +49,14 @@ const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
 		limit: 10,
 	};
 
-	const {items} = await client.getEntries<TBlogPost>(query);
+	const { items } = await client.getEntries<TBlogPost>(query);
 	return items;
-}
+};
 
-
-const getSummary = async (): Promise<TSummary[]> => {
+const getSummary = async (): Promise<TBlogPost[]> => {
 	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
 	const pages = await getSummaryPages();
-	return pages.map((page) => {
-		const {article, ...fields} = page.fields;
-		return {...fields, excerpt: getMarkdownExcerpt(article, 400)}
-	});
+	return pages.map(({ fields }) => fields);
 };
 
 const getSlugs = async (): Promise<string[]> => {
@@ -79,7 +67,7 @@ const getSlugs = async (): Promise<string[]> => {
 	};
 
 	const { items } = await client.getEntries<TBlogPost>(query);
-	return items.map(item => item.fields.slug);
+	return items.map((item) => item.fields.slug);
 };
 
 export { getPage, getSlugs, getSummary };

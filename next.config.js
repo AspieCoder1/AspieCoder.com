@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2022. AspieCoder
+ */
+
 /** @type {import('next').NextConfig} */
 module.exports = {
-  reactStrictMode: true,
-  images: {
+	reactStrictMode: true,
+	images: {
 		domains: ['images.ctfassets.net'],
 	},
-}
+};

@@ -1,65 +1,43 @@
-import MainCard from '@components/MainCard';
-import PostCard from '@components/PostCard';
-import {getSlugs, getSummary, TSummary} from '@utils/contentfulClient';
-import type {GetServerSideProps, NextPage} from 'next';
+/*
+ * Copyright (c) 2022. AspieCoder
+ */
+
+import type { NextPage } from 'next';
 import Head from 'next/head';
+import Layout from '@components/Layout';
+import { SocialIcon } from 'react-social-icons';
 import Image from 'next/image';
-import Link from 'next/link';
 
-type Props = {
-    mostRecent: TSummary;
-    posts: TSummary[];
-};
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-    const [mostRecent, ...posts] = await getSummary();
-    return {props: {mostRecent, posts}};
-};
-
-const Home: NextPage<Props, {}> = props => {
+const Home: NextPage<{}, {}> = () => {
 	return (
-		<div className='flex flex-col min-h-screen py-4 bg-black text-white '>
+		<div className="flex flex-col min-h-screen">
 			<Head>
 				<title>AspieCoder.com</title>
-				<link rel='icon' href='/favicon.ico' />
+				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
-			<div className='flex flex-col md:mx-20 mx-4 min-h-screen'>
-				<header className='flex justify-between '>
-					<div className='flex' id='logo'>
-						<p>AspieCoder.com</p>
-					</div>
-					<div>
-						<Link href='/search' passHref>
-							<a className='text-xl text-bold'>Blog</a>
-						</Link>
-					</div>
-				</header>
-				<main className='flex flex-col items-center justify-center w-full flex-1 mt-2 text-white mx-30'>
-					<div className='flex-1 text-center md:my-60 my-10'>
-						<h1 className='md:text-9xl text-4xl md:mb-10 mb-5'>AspieCoder.com</h1>
-						<h2 className='md:text-7xl text-2xl'>Welcome to the site!</h2>
-					</div>
-					{props.mostRecent && <MainCard content={props.mostRecent} />}
-					<h2 className='md:text-5xl text-xl w-full text-center border-b md:mb-10 md:pb-5 md:mt-20 mb-5 pb-2 mt-10'>Other posts</h2>
-
-					<div className=' my-10 grid md:grid-cols-5 grid-cols-1 w-full gap-6'>
-						{props.posts.map((_, index) => (
-							<PostCard key={index} content={props.mostRecent} />
-						))}
+			<Layout displayFooter={false}>
+				<main className="flex-1 flex text-center bg-gradient-to-tl from-purple-200 via-purple-400 to-purple-800 text-white items-center flex-col justify-center">
+					<h1 className="lg:text-9xl md:text-7xl text-4xl md:mb-10 mb-5 font-mono">
+						AspieCoder.com
+					</h1>
+					<div className="mt-10 flex mx-auto grid grid-rows-1 grid-flow-col gap-5">
+						<a href="https://github.com/AspieCoder1">
+							<Image
+								alt="Github logo"
+								width={64}
+								height={64}
+								src="/icons/Github.png"
+							/>
+						</a>
+						<SocialIcon
+							url="https://www.linkedin.com/in/luke-braithwaite/"
+							bgColor="white"
+							fgColor="transparent"
+							style={{ height: 64, width: 64 }}
+						/>
 					</div>
 				</main>
-				<footer className='flex items-center justify-center w-full h-24 border-t'>
-					<a
-						className='flex items-center justify-center'
-						href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						Powered by <Image src='/vercel.svg' alt='Vercel Logo' className='h-4 ml-2' width={72} height={16} />
-					</a>
-				</footer>
-			</div>
+			</Layout>
 		</div>
 	);
 };
