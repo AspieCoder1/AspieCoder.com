@@ -39,7 +39,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const { slug } = params as Params;
 	const fields = await getPage(slug);
 	const timeToRead = readingTime(fields.article);
-	console.log(fields);
 	return { props: { ...fields, readingTime: timeToRead } };
 };
 
