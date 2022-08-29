@@ -17,27 +17,8 @@ export type TBlogPost = {
 	article: string;
 	author: string;
 	date: string;
-	excerpt: string;
-};
-
-export type TSummary = {
-	title: string;
-	author: string;
-	date: string;
-	slug: string;
-	excerpt: string;
-};
-
-const getMarkdownExcerpt = (markdown: string, maxExcerptLength = 120) => {
-	// Trim and normalize whitespace in content text
-	const contentText = markdown.trim().replace(/\s+/g, ' ');
-	const excerpt = contentText.slice(0, maxExcerptLength);
-
-	if (contentText.length > maxExcerptLength) {
-		return excerpt + '...';
-	}
-
-	return excerpt;
+	summary: string;
+	tags: string[];
 };
 
 const getPage = async (slug: string): Promise<TBlogPost> => {
@@ -49,13 +30,14 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 		content_type: 'blogPost',
 	};
 	const {
-		items: [page],
+		items: [{ fields }],
 	} = await client.getEntries<TBlogPost>(query);
 	return (
-		{ ...page.fields, excerpt: getMarkdownExcerpt(page.fields.article) } || {
+		fields || {
 			title: 'not found',
 			slug: 'not found',
 			article: 'not found',
+			summary: 'not found',
 		}
 	);
 };
@@ -71,13 +53,10 @@ const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
 	return items;
 };
 
-const getSummary = async (): Promise<TSummary[]> => {
+const getSummary = async (): Promise<TBlogPost[]> => {
 	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
 	const pages = await getSummaryPages();
-	return pages.map((page) => {
-		const { article, ...fields } = page.fields;
-		return { ...fields, excerpt: getMarkdownExcerpt(article, 400) };
-	});
+	return pages.map(({ fields }) => fields);
 };
 
 const getSlugs = async (): Promise<string[]> => {

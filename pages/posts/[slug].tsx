@@ -39,6 +39,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const { slug } = params as Params;
 	const fields = await getPage(slug);
 	const timeToRead = readingTime(fields.article);
+	console.log(fields);
 	return { props: { ...fields, readingTime: timeToRead } };
 };
 
@@ -47,7 +48,7 @@ const Posts: NextPage<Props, {}> = (props) => {
 		<>
 			<Head>
 				<title>{props.title}</title>
-				<meta name="description" content={props.excerpt} />
+				<meta name="description" content={props.summary} />
 			</Head>
 			<Layout>
 				<Header

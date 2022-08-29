@@ -2,6 +2,8 @@
  * Copyright (c) 2022. AspieCoder
  */
 
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
 	content: [
 		'./pages/**/*.{js,ts,jsx,tsx}',
@@ -42,5 +44,10 @@ module.exports = {
 			}),
 		},
 	},
-	plugins: [require('@tailwindcss/typography')],
+	plugins: [
+		require('@tailwindcss/typography'),
+		plugin(({ addVariant }) => {
+			addVariant('not-last', '&:not(:last-child)');
+		}),
+	],
 };
