@@ -28,11 +28,9 @@ const Blog: NextPage<Props, {}> = (props): JSX.Element => {
 			</section>
 			<main className="flex flex-col items-center justify-center flex-1 pt-10 px-4 md:px-32 bg-gray-100">
 				<div className="mt-4 grid grid-cols-1 w-full gap-6 mb-10">
-					{Array(6)
-						.fill(props.posts[0])
-						.map((_, index) => (
-							<PostCard key={index} content={props.posts[0]} />
-						))}
+					{props.posts.map((post, index) => (
+						<PostCard key={index} content={post} />
+					))}
 				</div>
 			</main>
 		</Layout>
