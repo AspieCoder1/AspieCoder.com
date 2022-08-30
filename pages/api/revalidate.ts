@@ -23,7 +23,6 @@ const schema: JSONSchemaType<Body> = {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { body } = req;
-	console.log(body);
 	if (req.headers.authorization !== process.env.REVALIDATE_SECRET) {
 		return res.status(401).json({ message: 'Invalid token' });
 	}
@@ -31,6 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const isValid = ajv.compile(schema);
 
 	if (!isValid(body)) {
+		logger.error('Failed to provide a slug');
 		return res.status(400).json({ message: 'Failed to provide a slug' });
 	}
 
@@ -38,8 +38,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		const { slug } = body;
 		await res.revalidate('/blog');
 		await res.revalidate(`/posts/${slug}`);
+		logger.info(`updated /posts/${slug}`);
 		return res.json({ revalidated: true });
 	} catch (err: any) {
+		logger.error(err.message);
 		return res.status(500).send({ msg: err.message });
 	}
 };
