@@ -4,6 +4,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Ajv, { JSONSchemaType } from 'ajv';
+import logger from '@utils/logger';
 
 type Body = {
 	slug: string;
@@ -22,6 +23,7 @@ const schema: JSONSchemaType<Body> = {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { body } = req;
+	logger.info(body);
 	if (req.headers.authorization !== process.env.REVALIDATE_SECRET) {
 		return res.status(401).json({ message: 'Invalid token' });
 	}
