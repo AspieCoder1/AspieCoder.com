@@ -2,19 +2,18 @@
  * Copyright (c) 2022. AspieCoder
  */
 import * as React from 'react';
-import { GetServerSideProps, NextPage } from 'next';
-import { getSummary, TBlogPost } from '@utils/contentfulClient';
+import { GetStaticProps, NextPage } from 'next';
+import { getMostRecentPosts, TBlogPost } from '@utils/contentfulClient';
 import PostCard from '@components/PostCard';
 import Layout from '@components/Layout';
 
 type Props = {
-	mostRecent: TBlogPost;
 	posts: TBlogPost[];
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-	const [mostRecent, ...posts] = await getSummary();
-	return { props: { mostRecent, posts } };
+export const getStaticProps: GetStaticProps<Props> = async () => {
+	const posts = await getMostRecentPosts();
+	return { props: { posts } };
 };
 
 const Blog: NextPage<Props, {}> = (props): JSX.Element => {
@@ -29,11 +28,9 @@ const Blog: NextPage<Props, {}> = (props): JSX.Element => {
 			</section>
 			<main className="flex flex-col items-center justify-center flex-1 pt-10 px-4 md:px-32 bg-gray-100">
 				<div className="mt-4 grid grid-cols-1 w-full gap-6 mb-10">
-					{Array(6)
-						.fill(props.mostRecent)
-						.map((_, index) => (
-							<PostCard key={index} content={props.mostRecent} />
-						))}
+					{props.posts.map((post, index) => (
+						<PostCard key={index} content={post} />
+					))}
 				</div>
 			</main>
 		</Layout>

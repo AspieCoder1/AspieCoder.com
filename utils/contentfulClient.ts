@@ -42,7 +42,7 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 	);
 };
 
-const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
+const getMostRecentEntries = async (): Promise<Entry<TBlogPost>[]> => {
 	const query = {
 		locale: 'en-US',
 		content_type: 'blogPost',
@@ -53,9 +53,9 @@ const getSummaryPages = async (): Promise<Entry<TBlogPost>[]> => {
 	return items;
 };
 
-const getSummary = async (): Promise<TBlogPost[]> => {
+const getMostRecentPosts = async (): Promise<TBlogPost[]> => {
 	// Promise.all converts an array of promises to a single promise and ensures everything returns correctly
-	const pages = await getSummaryPages();
+	const pages = await getMostRecentEntries();
 	return pages.map(({ fields }) => fields);
 };
 
@@ -70,4 +70,4 @@ const getSlugs = async (): Promise<string[]> => {
 	return items.map((item) => item.fields.slug);
 };
 
-export { getPage, getSlugs, getSummary };
+export { getPage, getSlugs, getMostRecentPosts };
