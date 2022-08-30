@@ -3,24 +3,41 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSlugs } from '@utils/contentfulClient';
+import Ajv, { JSONSchemaType } from 'ajv';
+
+type Body = {
+	slug: string;
+};
+
+const ajv = new Ajv();
+
+const schema: JSONSchemaType<Body> = {
+	type: 'object',
+	properties: {
+		slug: { type: 'string' },
+	},
+	required: ['slug'],
+	additionalProperties: false,
+};
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	console.log(req.headers.authorization);
+	const { body } = req;
 	if (req.headers.authorization !== process.env.REVALIDATE_SECRET) {
 		return res.status(401).json({ message: 'Invalid token' });
 	}
 
+	const isValid = ajv.compile(schema);
+
+	if (!isValid(body)) {
+		return res.status(400).json({ message: 'Failed to provide a slug' });
+	}
+
 	try {
-		// this should be the actual path not a rewritten path
-		// e.g. for "/blog/[slug]" this should be "/blog/post-1"
+		const { slug } = body;
 		await res.revalidate('/blog');
-		const slugs = await getSlugs();
-		await Promise.all(slugs.map((slug) => res.revalidate(`/posts/${slug}`)));
+		await res.revalidate(`/posts/${slug}`);
 		return res.json({ revalidated: true });
 	} catch (err: any) {
-		// If there was an error, Next.js will continue
-		// to show the last successfully generated page
 		return res.status(500).send({ msg: err.message });
 	}
 };
