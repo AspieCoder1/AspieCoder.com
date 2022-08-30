@@ -6,6 +6,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { getMostRecentPosts, TBlogPost } from '@utils/contentfulClient';
 import PostCard from '@components/PostCard';
 import Layout from '@components/Layout';
+import Head from 'next/head';
 
 type Props = {
 	posts: TBlogPost[];
@@ -19,6 +20,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 const Blog: NextPage<Props, {}> = (props): JSX.Element => {
 	return (
 		<Layout>
+			<Head>
+				<title>Blog | AspieCoder</title>
+			</Head>
 			<section
 				id="hero"
 				className="bg-black w-full py-10 px-4 md:px-32 min-h-[25vh] drop-shadow-md"
