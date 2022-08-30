@@ -17,10 +17,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		const slugs = await getSlugs();
 		await Promise.all(slugs.map((slug) => res.revalidate(`/posts/${slug}`)));
 		return res.json({ revalidated: true });
-	} catch (err) {
+	} catch (err: any) {
 		// If there was an error, Next.js will continue
 		// to show the last successfully generated page
-		return res.status(500).send('Error revalidating');
+		return res.status(500).send({ msg: err.message });
 	}
 };
 
