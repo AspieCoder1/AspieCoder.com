@@ -50,6 +50,7 @@ const getMostRecentEntries = async (): Promise<Entry<TBlogPost>[]> => {
 		locale: 'en-US',
 		content_type: 'blogPost',
 		limit: 10,
+		order: '-fields.date',
 	};
 
 	const { items } = await client.getEntries<TBlogPost>(query);
@@ -67,6 +68,7 @@ const getSlugs = async (): Promise<string[]> => {
 		locale: 'en-US',
 		content_type: 'blogPost',
 		limit: 10,
+		order: '-fields.date',
 	};
 
 	const { items } = await client.getEntries<TBlogPost>(query);
