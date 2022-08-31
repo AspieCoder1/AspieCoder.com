@@ -3,7 +3,7 @@
  */
 import * as React from 'react';
 import { GetStaticProps, NextPage } from 'next';
-import { getMostRecentPosts, TBlogPost } from '@utils/contentfulClient';
+import { getMostRecentPosts, TBlogPost } from '@libs/contentfulClient';
 import PostCard from '@components/PostCard';
 import Layout from '@components/Layout';
 import Head from 'next/head';

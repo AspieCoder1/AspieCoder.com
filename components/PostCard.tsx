@@ -2,7 +2,7 @@
  * Copyright (c) 2022. AspieCoder
  */
 
-import { TBlogPost } from '@utils/contentfulClient';
+import { TBlogPost } from '@libs/contentfulClient';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import Tag from '@components/Tag';

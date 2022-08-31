@@ -6,7 +6,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import remarkGfm from 'remark-gfm';
 
-import { getPage, getSlugs, TBlogPost } from '@utils/contentfulClient';
+import { getPage, getSlugs, TBlogPost } from '@libs/contentfulClient';
 import ReactMarkdown from 'react-markdown';
 
 import readingTime, { ReadTimeResults } from 'reading-time';
@@ -38,6 +38,11 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const { slug } = params as Params;
 	const fields = await getPage(slug);
+	if (!fields) {
+		return {
+			notFound: true,
+		};
+	}
 	const timeToRead = readingTime(fields.article);
 	return { props: { ...fields, readingTime: timeToRead } };
 };

@@ -21,7 +21,7 @@ export type TBlogPost = {
 	tags: string[];
 };
 
-const getPage = async (slug: string): Promise<TBlogPost> => {
+const getPage = async (slug: string): Promise<TBlogPost | undefined> => {
 	const query = {
 		limit: 1,
 		include: 10,
@@ -29,9 +29,12 @@ const getPage = async (slug: string): Promise<TBlogPost> => {
 		'fields.slug': slug,
 		content_type: 'blogPost',
 	};
-	const {
-		items: [{ fields }],
-	} = await client.getEntries<TBlogPost>(query);
+
+	const { items } = await client.getEntries<TBlogPost>(query);
+	if (items.length == 0) {
+		return undefined;
+	}
+	const [{ fields }] = items;
 	return (
 		fields || {
 			title: 'not found',
