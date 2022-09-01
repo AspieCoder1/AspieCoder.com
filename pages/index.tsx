@@ -12,11 +12,11 @@ const Home: NextPage<{}, {}> = () => {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<Head>
-				<title>AspieCoder.com</title>
+				<title>Home | AspieCoder.com</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Layout displayFooter={false}>
-				<main className="flex-1 flex text-center bg-gradient-to-tl from-purple-200 via-purple-400 to-purple-800 text-white items-center flex-col justify-center">
+				<main className="flex-1 flex text-center grad-4 text-white items-center flex-col justify-center">
 					<h1 className="lg:text-9xl md:text-7xl text-4xl md:mb-10 mb-5 font-mono">
 						AspieCoder.com
 					</h1>
