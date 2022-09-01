@@ -3,7 +3,7 @@
  */
 
 import dayjs from 'dayjs';
-import { SocialIcon } from 'react-social-icons';
+import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 
 const Footer = (): JSX.Element => {
 	return (
@@ -13,14 +13,12 @@ const Footer = (): JSX.Element => {
 				&copy;{dayjs().year()} Luke Braithwaite. All rights reserved.
 			</p>
 			<div className="mt-1 mx-auto grid grid-rows-1 grid-flow-col gap-5 ">
-				<SocialIcon
-					className="w-8 h-8 md:w-16 md:h-16"
-					url="https://github.com/AspieCoder1"
-				/>
-				<SocialIcon
-					url="https://www.linkedin.com/in/luke-braithwaite/"
-					className="w-7 h-7 md:w-16 md:h-16"
-				/>
+				<a href="https://github.com/AspieCoder1">
+					<AiFillGithub className="w-8 h-8 md:w-12 md:h-12" />
+				</a>
+				<a href="https://www.linkedin.com/in/luke-braithwaite/">
+					<AiFillLinkedin className="w-8 h-8 md:w-12 md:h-12" />
+				</a>
 			</div>
 		</footer>
 	);

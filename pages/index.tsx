@@ -5,8 +5,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Layout from '@components/Layout';
-import { SocialIcon } from 'react-social-icons';
-import Image from 'next/image';
+import { AiFillLinkedin, AiFillGithub } from 'react-icons/ai';
 
 const Home: NextPage<{}, {}> = () => {
 	return (
@@ -20,21 +19,19 @@ const Home: NextPage<{}, {}> = () => {
 					<h1 className="lg:text-9xl md:text-7xl text-4xl md:mb-10 mb-5 font-mono">
 						AspieCoder.com
 					</h1>
-					<div className="mt-10 flex mx-auto grid grid-rows-1 grid-flow-col gap-5">
+					<div className="flex content-center mx-auto space-x-5 md:space-x-10">
 						<a href="https://github.com/AspieCoder1">
-							<Image
-								alt="Github logo"
-								width={64}
-								height={64}
-								src="/icons/Github.png"
+							<AiFillGithub
+								className="w-12 h-12 md:w-16 md:h-16"
+								color="white"
 							/>
 						</a>
-						<SocialIcon
-							url="https://www.linkedin.com/in/luke-braithwaite/"
-							bgColor="white"
-							fgColor="transparent"
-							style={{ height: 64, width: 64 }}
-						/>
+						<a href="https://www.linkedin.com/in/luke-braithwaite/">
+							<AiFillLinkedin
+								className="w-12 h-12 md:w-16 md:h-16"
+								color="white"
+							/>
+						</a>
 					</div>
 				</main>
 			</Layout>
