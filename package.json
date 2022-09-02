@@ -15,7 +15,7 @@
 		"@types/react-syntax-highlighter": "^13.5.2",
 		"ajv": "^8.11.0",
 		"contentful": "^9.1.5",
-		"dayjs": "^1.10.7",
+		"dayjs": "^1.11.5",
 		"next": "^12.2.5",
 		"pino": "^8.4.2",
 		"react": "^18.2.0",
