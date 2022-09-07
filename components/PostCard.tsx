@@ -6,28 +6,41 @@ import { TBlogPost } from '@libs/contentfulClient';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import Tag from '@components/Tag';
+import rmMarkdown from 'remove-markdown';
+import { MostRecentPostDataFragment } from '@generated/generated';
 
 type Props = {
-	content: TBlogPost;
+	content?: MostRecentPostDataFragment | null;
 };
 
-const PostCard = (props: Props) => {
-	const { title, author, date, slug, summary, tags } = props.content;
+const PostCard = ({ content }: Props) => {
 	return (
-		<div className="card bg-white p-4 rounded-md drop-shadow">
-			<p className="text-lg text-left">{dayjs(date).format('DD MMM YYYY')}</p>
-			<Link href={`/posts/${slug}`} passHref>
-				<a className="text-4xl font-bold text-left hover:text-violet-800 hover:underline">
-					{title}
+		<div className="card bg-white p-4 rounded-md transition ease-in-out delay-150 hover:drop-shadow-lg hover:-translate-y-1">
+			<Link
+				className="card bg-white p-4 rounded-md transition ease-in-out delay-150 hover:drop-shadow-lg hover:-translate-y-1"
+				href={`/posts/${content?.slug}`}
+				passHref
+			>
+				<a className="flex flex-col items-stretch h-full">
+					<p className="text-lg text-left">
+						{dayjs(content?.date).format('DD MMM YYYY')}
+					</p>
+					<h2 className="text-2xl flex-1 font-bold text-left line-clamp-3">
+						{content?.title}
+					</h2>
+					<div className="my-2 flex flex-row space-x-4">
+						{content?.tags?.map((tag: string | null, i: number) => (
+							<Tag key={i}>{tag}</Tag>
+						))}
+					</div>
+					<p className="mt-5 text-xl line-clamp-3">
+						{rmMarkdown(content?.article ?? 'This post has no content')}
+					</p>
+					<p className="mt-3 text-normal text-left font-light">
+						By {content?.author}
+					</p>
 				</a>
 			</Link>
-			<div className="my-2 flex flex-row space-x-4">
-				{tags.map((tag, i) => (
-					<Tag key={i} content={tag} />
-				))}
-			</div>
-			<p className="mt-2 text-xl">{summary}</p>
-			<p className="text-normal text-left font-light">By {author}</p>
 		</div>
 	);
 };

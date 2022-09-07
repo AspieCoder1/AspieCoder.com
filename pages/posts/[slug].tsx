@@ -18,6 +18,10 @@ import Layout from '@components/Layout';
 import { getMarkdownSettings } from '@utils/remarkStyling';
 import rehypeRaw from 'rehype-raw';
 import smartypants from 'remark-smartypants';
+import { createClient, fetchExchange } from 'urql';
+import { graphqlURL, exchanges } from '@libs/graphql/graphqlClient';
+import { SlugsQueryDocument } from '@generated/generated';
+import { customAuthExchange } from '@libs/graphql/auth';
 
 type Props = TBlogPost & {
 	readingTime: ReadTimeResults;
@@ -28,7 +32,17 @@ interface Params extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-	const slugs = await getSlugs();
+	const client = createClient({
+		url: graphqlURL,
+		exchanges: exchanges,
+	});
+
+	const { data } = await client.query(SlugsQueryDocument, {}).toPromise();
+	const slugs =
+		data?.blogPostCollection?.items
+			.map((item) => item?.slug)
+			.filter((slug): slug is string => !!slug) ?? [];
+
 	return {
 		paths: slugs.map((slug) => ({ params: { slug } })),
 		fallback: false,
@@ -61,7 +75,7 @@ const Posts: NextPage<Props, {}> = (props) => {
 					readingTime={props.readingTime.text}
 					author={props.author}
 				/>
-				<article className="lg:mx-auto prose md:prose-lg lg:prose-xl mt-8 md:mt-16 mb-8 md:mb-16 lg:max-w-screen-lg max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
+				<article className="lg:mx-auto prose md:prose-lg lg:prose-xl my-8 md:my-16 lg:max-w-screen-lg max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
 					<ReactMarkdown
 						components={getMarkdownSettings()}
 						remarkPlugins={[remarkGfm, remarkUnwrapImages, smartypants]}

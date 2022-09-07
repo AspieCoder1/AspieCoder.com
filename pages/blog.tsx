@@ -3,21 +3,36 @@
  */
 import * as React from 'react';
 import { GetStaticProps, NextPage } from 'next';
-import { getMostRecentPosts, TBlogPost } from '@libs/contentfulClient';
 import PostCard from '@components/PostCard';
 import Layout from '@components/Layout';
 import Head from 'next/head';
+import { exchanges, graphqlURL } from '@libs/graphql/graphqlClient';
+import {
+	MostRecentPostsQueryDocument,
+	MostRecentPostsQueryQuery,
+} from '@generated/generated';
+
+import { withUrqlClient } from 'next-urql';
+import { createClient } from 'urql';
 
 type Props = {
-	posts: TBlogPost[];
+	data?: MostRecentPostsQueryQuery;
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const posts = await getMostRecentPosts();
-	return { props: { posts } };
+	const client = createClient({
+		url: graphqlURL,
+		exchanges: exchanges,
+	});
+
+	const { data } = await client
+		.query(MostRecentPostsQueryDocument, {})
+		.toPromise();
+
+	return { props: { data } };
 };
 
-const Blog: NextPage<Props, {}> = (props): JSX.Element => {
+const Blog: NextPage<Props, {}> = ({ data }): JSX.Element => {
 	return (
 		<Layout>
 			<Head>
@@ -30,15 +45,18 @@ const Blog: NextPage<Props, {}> = (props): JSX.Element => {
 				<h1 className="text-6xl text-white font-mono">Blog</h1>
 				<h2 className="text-white pt-5 text-4xl">Read my latest blog posts</h2>
 			</section>
-			<main className="flex flex-col items-center justify-center flex-1 pt-10 px-4 md:px-32 bg-gray-100">
-				<div className="mt-4 grid grid-cols-1 w-full gap-6 mb-10">
-					{props.posts.map((post, index) => (
-						<PostCard key={index} content={post} />
-					))}
+			<main className=" flex-1 py-8 px-4 md:px-16 bg-gray-100">
+				<h1 className="text-center">Search goes here</h1>
+				<div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-6">
+					{data?.blogPostCollection?.items?.map((post, _) => {
+						return <PostCard key={post?.slug} content={post} />;
+					})}
 				</div>
 			</main>
 		</Layout>
 	);
 };
 
-export default Blog;
+export default withUrqlClient((ssr) => ({
+	url: graphqlURL,
+}))(Blog);
