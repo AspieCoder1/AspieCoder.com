@@ -1,0 +1,10 @@
+query postsQuery {
+	blogPostCollection {
+		items {
+			title
+			slug
+			author
+			date
+		}
+	}
+}

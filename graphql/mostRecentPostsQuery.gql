@@ -1,0 +1,16 @@
+query mostRecentPostsQuery {
+	blogPostCollection(limit: 9, order: date_ASC) {
+		items {
+			...mostRecentPostData
+		}
+	}
+}
+
+fragment mostRecentPostData on BlogPost {
+	author
+	title
+	article
+	date
+	tags
+	slug
+}
