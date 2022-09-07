@@ -251,4 +251,5 @@ fabric.properties
 # and uncomment the following lines
 # .pnp.*
 .eslintcache
+__generated__/
 # End of https://www.toptal.com/developers/gitignore/api/yarn,macos,nextjs,react,webstorm,visualstudiocode
