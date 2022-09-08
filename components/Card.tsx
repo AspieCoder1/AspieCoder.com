@@ -2,7 +2,6 @@
  * Copyright (c) 2022. AspieCoder
  */
 
-import { TBlogPost } from '@libs/contentfulClient';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import Tag from '@components/Tag';
@@ -13,7 +12,7 @@ type Props = {
 	content?: MostRecentPostDataFragment | null;
 };
 
-const PostCard = ({ content }: Props) => {
+const Card = ({ content }: Props) => {
 	return (
 		<div className="card bg-white p-4 rounded-md transition ease-in-out delay-150 hover:drop-shadow-lg hover:-translate-y-1">
 			<Link
@@ -45,4 +44,4 @@ const PostCard = ({ content }: Props) => {
 	);
 };
 
-export default PostCard;
+export default Card;

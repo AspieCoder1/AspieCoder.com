@@ -3,7 +3,7 @@
  */
 import * as React from 'react';
 import { GetStaticProps, NextPage } from 'next';
-import PostCard from '@components/PostCard';
+import Card from '@components/Card';
 import Layout from '@components/Layout';
 import Head from 'next/head';
 import { graphqlURL } from '@libs/graphql/graphqlClient';
@@ -13,10 +13,7 @@ import {
 } from '@generated/generated';
 
 import { withUrqlClient } from 'next-urql';
-import {
-	createClient,
-	fetchExchange,
-} from '@urql/core';
+import { createClient, fetchExchange } from '@urql/core';
 import { customAuthExchange } from '@libs/graphql/auth';
 
 type Props = {
@@ -53,7 +50,7 @@ const Blog: NextPage<Props, {}> = ({ data }): JSX.Element => {
 				<h1 className="text-center">Search goes here</h1>
 				<div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-6">
 					{data?.blogPostCollection?.items?.map((post, _) => {
-						return <PostCard key={post?.slug} content={post} />;
+						return <Card key={post?.slug} content={post} />;
 					})}
 				</div>
 			</main>
@@ -61,6 +58,6 @@ const Blog: NextPage<Props, {}> = ({ data }): JSX.Element => {
 	);
 };
 
-export default withUrqlClient((ssr) => ({
+export default withUrqlClient((_ssr) => ({
 	url: graphqlURL,
 }))(Blog);
