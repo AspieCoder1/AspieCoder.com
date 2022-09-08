@@ -5,10 +5,10 @@
 import dayjs from 'dayjs';
 
 type Props = {
-	title: string;
+	title?: string | null;
 	date: string;
 	readingTime: string;
-	author: string;
+	author?: string | null;
 };
 
 const Header = (props: Props) => {

@@ -1,10 +1,14 @@
-query postsQuery {
-	blogPostCollection {
+query getPostQuery($slug: String) {
+	blogPostCollection(limit: 1, where: { slug: $slug }) {
 		items {
-			title
-			slug
-			author
-			date
+			...GetPostQuery
 		}
 	}
+}
+
+fragment GetPostQuery on BlogPost {
+	title
+	author
+	date
+	article
 }

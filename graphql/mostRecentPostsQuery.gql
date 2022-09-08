@@ -1,5 +1,5 @@
 query mostRecentPostsQuery {
-	blogPostCollection(limit: 9, order: date_ASC) {
+	blogPostCollection(limit: 9, order: date_DESC) {
 		items {
 			...mostRecentPostData
 		}

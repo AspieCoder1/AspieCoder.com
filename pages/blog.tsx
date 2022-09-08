@@ -6,14 +6,18 @@ import { GetStaticProps, NextPage } from 'next';
 import PostCard from '@components/PostCard';
 import Layout from '@components/Layout';
 import Head from 'next/head';
-import { exchanges, graphqlURL } from '@libs/graphql/graphqlClient';
+import { graphqlURL } from '@libs/graphql/graphqlClient';
 import {
 	MostRecentPostsQueryDocument,
 	MostRecentPostsQueryQuery,
 } from '@generated/generated';
 
 import { withUrqlClient } from 'next-urql';
-import { createClient } from 'urql';
+import {
+	createClient,
+	fetchExchange,
+} from '@urql/core';
+import { customAuthExchange } from '@libs/graphql/auth';
 
 type Props = {
 	data?: MostRecentPostsQueryQuery;
@@ -22,7 +26,7 @@ type Props = {
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const client = createClient({
 		url: graphqlURL,
-		exchanges: exchanges,
+		exchanges: [customAuthExchange, fetchExchange],
 	});
 
 	const { data } = await client
