@@ -1,12 +1,12 @@
 query mostRecentPostsQuery {
 	blogPostCollection(limit: 9, order: date_DESC) {
 		items {
-			...mostRecentPostData
+			...mostRecentPostsData
 		}
 	}
 }
 
-fragment mostRecentPostData on BlogPost {
+fragment mostRecentPostsData on BlogPost {
 	author
 	title
 	article

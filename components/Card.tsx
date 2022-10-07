@@ -6,10 +6,10 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import Tag from '@components/Tag';
 import rmMarkdown from 'remove-markdown';
-import { MostRecentPostDataFragment } from '@generated/generated';
+import { MostRecentPostsDataFragment } from '@generated/generated';
 
 type Props = {
-	content?: MostRecentPostDataFragment | null;
+	content?: MostRecentPostsDataFragment | null;
 };
 
 const Card = ({ content }: Props) => {
