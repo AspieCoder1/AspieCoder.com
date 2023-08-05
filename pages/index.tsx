@@ -4,7 +4,6 @@
 
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Layout from '@components/Layout';
 import { AiFillLinkedin, AiFillGithub } from 'react-icons/ai';
 import NavBar from '@components/NavBar/NavBar';
 import Footer from '@components/Footer';

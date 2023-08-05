@@ -13,9 +13,12 @@
 		"doppler-run": "doppler run --forward-signals -- yarn dev"
 	},
 	"dependencies": {
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
 		"@headlessui/react": "^1.6.6",
 		"@heroicons/react": "^2.0.8",
 		"@mui/icons-material": "^5.14.3",
+		"@mui/material": "^5.14.3",
 		"@types/react-syntax-highlighter": "^13.5.2",
 		"@urql/exchange-auth": "^1.0.0",
 		"ajv": "^8.11.0",
