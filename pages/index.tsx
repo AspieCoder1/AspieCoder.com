@@ -27,27 +27,35 @@ const Home: NextPage<{}, {}> = () => {
 				<title>Home | AspieCoder.com</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main className="grad-4-1 text-white px-4 min-h-screen flex justify-center items-center">
-				<div className="bg-black md:p-24 p-8  bg-opacity-25 border-white border-2">
-					<h1 className="lg:text-8xl md:text-4xl text-xl font-bold">
-						Luke Braithwaite
-					</h1>
-					<h2 className="md:text-3xl text-md font-light">
-						First Class Computer Science Graduate @ University of Manchester
-					</h2>
-					<div className="pt-4 flex space-x-3 md:space-x-6">
-						<a href="https://github.com/AspieCoder1">
-							<AiFillGithub className="w-8 h-8 md:w-16 md:h-16" color="white" />
-						</a>
-						<a href="https://www.linkedin.com/in/luke-braithwaite/">
-							<AiFillLinkedin
-								className="w-8 h-8 md:w-16 md:h-16"
-								color="white"
-							/>
-						</a>
+			<div className="min-h-screen">
+				<NavBar />
+				<main className="grad-4-1 text-white px-4 min-h-screen flex justify-center items-center">
+					<div className="bg-black md:p-24 p-8  bg-opacity-25">
+						<h1 className="lg:text-8xl md:text-4xl text-xl font-bold">
+							Luke Braithwaite
+						</h1>
+						<h2 className="md:text-3xl text-md font-light">
+							First Class Computer Science Graduate @ The University of
+							Manchester
+						</h2>
+						<div className="pt-4 flex space-x-3 md:space-x-6">
+							<a href="https://github.com/AspieCoder1">
+								<AiFillGithub
+									className="w-8 h-8 md:w-16 md:h-16"
+									color="white"
+								/>
+							</a>
+							<a href="https://www.linkedin.com/in/luke-braithwaite/">
+								<AiFillLinkedin
+									className="w-8 h-8 md:w-16 md:h-16"
+									color="white"
+								/>
+							</a>
+						</div>
 					</div>
-				</div>
-			</main>
+				</main>
+			</div>
+
 			<section className="text-justify md:prose-xl prose mx-auto max-w-screen-xl pb-8 pt-32 md:px-0 px-4">
 				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4">
 					About
