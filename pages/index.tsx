@@ -13,10 +13,10 @@ import WorkIcon from '@mui/icons-material/Work';
 import StarIcon from '@mui/icons-material/Star';
 import * as React from 'react';
 
-// @ts-ignore
 import {
 	VerticalTimeline,
 	VerticalTimelineElement,
+	//@ts-ignore
 } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 
