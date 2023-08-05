@@ -92,7 +92,7 @@ const Posts: NextPage<Props, {}> = ({ post, readingTime }) => {
 					readingTime={readingTime.text}
 					author={post?.author}
 				/>
-				<article className="lg:mx-auto prose md:prose-lg lg:prose-xl my-8 md:my-16 lg:max-w-screen-lg max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
+				<article className="lg:mx-auto prose md:prose-lg lg:prose-xl my-8 md:my-16 lg:max-w-screen-xl max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
 					<ReactMarkdown
 						components={getMarkdownSettings()}
 						remarkPlugins={[remarkGfm, remarkUnwrapImages, smartypants]}

@@ -9,11 +9,13 @@
 		"lint": "next lint",
 		"prepare": "husky install",
 		"format": "prettier --write .",
-		"generate": "graphql-codegen"
+		"generate": "graphql-codegen",
+		"doppler-run": "doppler run --forward-signals -- yarn dev"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.6.6",
 		"@heroicons/react": "^2.0.8",
+		"@mui/icons-material": "^5.14.3",
 		"@types/react-syntax-highlighter": "^13.5.2",
 		"@urql/exchange-auth": "^1.0.0",
 		"ajv": "^8.11.0",
@@ -30,6 +32,7 @@
 		"react-markdown": "^7.1.1",
 		"react-responsive": "^9.0.0-beta.10",
 		"react-syntax-highlighter": "^15.4.5",
+		"react-vertical-timeline-component": "^3.6.0",
 		"reading-time": "^1.5.0",
 		"rehype-raw": "^6.1.1",
 		"remark-gfm": "^3.0.1",

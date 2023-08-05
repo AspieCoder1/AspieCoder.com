@@ -26,11 +26,18 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		exchanges: [customAuthExchange, fetchExchange],
 	});
 
-	const { data } = await client
-		.query(MostRecentPostsQueryDocument, {})
-		.toPromise();
+	try {
+		const { data } = await client
+			.query(MostRecentPostsQueryDocument, {})
+			.toPromise();
 
-	return { props: { data } };
+		if (data) {
+			return { props: { data } };
+		}
+		return { props: {} };
+	} catch (e) {
+		return { props: {} };
+	}
 };
 
 const Blog: NextPage<Props, {}> = ({ data }): JSX.Element => {
