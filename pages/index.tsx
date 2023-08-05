@@ -81,7 +81,7 @@ const Home: NextPage<{}, {}> = () => {
 			</h2>
 			<VerticalTimeline className="pb-8">
 				<VerticalTimelineElement
-					date="2020 &mdash; 2023"
+					date="2020 &ndash; 2023"
 					iconStyle={{ background: '#991b1b', color: '#fff' }}
 					icon={<SchoolIcon />}
 				>
@@ -97,7 +97,7 @@ const Home: NextPage<{}, {}> = () => {
 				</VerticalTimelineElement>
 				<VerticalTimelineElement
 					className="vertical-timeline-element--work"
-					date="Sep 2022 &mdash; Jun 2023"
+					date="Sep 2022 &ndash; Jun 2023"
 					iconStyle={{ background: '#1e3a8a', color: '#fff' }}
 					icon={<WorkIcon />}
 				>
@@ -116,7 +116,7 @@ const Home: NextPage<{}, {}> = () => {
 				</VerticalTimelineElement>
 				<VerticalTimelineElement
 					className="vertical-timeline-element--work"
-					date="Jun 2022 &mdash; Sep 2022"
+					date="Jun 2022 &ndash; Sep 2022"
 					iconStyle={{ background: '#1e3a8a', color: '#fff' }}
 					icon={<WorkIcon />}
 				>
@@ -137,12 +137,12 @@ const Home: NextPage<{}, {}> = () => {
 				</VerticalTimelineElement>
 				<VerticalTimelineElement
 					className="vertical-timeline-element--work"
-					date="Sep 2022 &mdash; Jun 2023"
+					date="Sep 2022 &ndash; Jun 2023"
 					iconStyle={{ background: '#1e3a8a', color: '#fff' }}
 					icon={<WorkIcon />}
 				>
 					<h3 className="text-lg font-bold">Software Engineer</h3>
-					<h4>Imago &emdash; The Student Software Company</h4>
+					<h4>Imago &mdash; The Student Software Company</h4>
 					<ul className="list-disc list-inside pt-2">
 						<li>
 							Open-sourced a research application for automating data cleaning
