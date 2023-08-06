@@ -7,7 +7,7 @@ import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 
 const Footer = (): JSX.Element => {
 	return (
-		<footer className="text-white bg-black drop-shadow-md md:px-0 px-4">
+		<footer className="text-white bg-black drop-shadow-md xl:px-0 px-4">
 			<div className="flex items-center justify-between max-w-screen-xl mx-auto py-2 md:py-5">
 				<div>
 					<h1 className="font-mono text-lg md:text-lg">AspieCoder.com</h1>
