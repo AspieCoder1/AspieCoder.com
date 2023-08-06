@@ -36,7 +36,7 @@ const Card = ({ content }: Props) => {
 						{rmMarkdown(content?.article ?? 'This post has no content')}
 					</p>
 					<p className="mt-3 text-normal text-left font-light">
-						By {content?.author}
+						By {content?.author?.name}
 					</p>
 				</a>
 			</Link>

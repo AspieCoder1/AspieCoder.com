@@ -90,7 +90,7 @@ const Posts: NextPage<Props, {}> = ({ post, readingTime }) => {
 					title={post?.title}
 					date={post?.date}
 					readingTime={readingTime.text}
-					author={post?.author}
+					author={post?.author?.name}
 				/>
 				<article className="lg:mx-auto prose md:prose-lg lg:prose-xl my-8 md:my-16 lg:max-w-screen-xl max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
 					<ReactMarkdown

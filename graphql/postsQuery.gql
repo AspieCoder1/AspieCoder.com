@@ -8,7 +8,9 @@ query getPostQuery($slug: String) {
 
 fragment GetPostQuery on BlogPost {
 	title
-	author
+	author {
+		name
+	}
 	date
 	article
 }
