@@ -67,7 +67,7 @@ const Home: NextPage<{}, {}> = () => {
 				className="text-justify md:prose-xl prose mx-auto max-w-screen-xl pb-16 pt-16 md:px-0 px-4"
 				id="about"
 			>
-				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4">
+				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4">
 					About
 				</h2>
 				<p>
@@ -204,9 +204,13 @@ const Home: NextPage<{}, {}> = () => {
 
 			{/* Services */}
 			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 md:px-0 px-4">
-				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4">
+				<h2
+					className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4"
+					id="services"
+				>
 					Services
 				</h2>
+				<p>I offer the following services:</p>
 				<Disclosure as="div">
 					{({ open }) => (
 						<>
@@ -268,8 +272,11 @@ const Home: NextPage<{}, {}> = () => {
 				</Disclosure>
 			</section>
 
-			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 md:px-0 px-4">
-				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4">
+			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-32 md:px-0 px-4">
+				<h2
+					className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4"
+					id="contact"
+				>
 					Contact
 				</h2>
 				<p>
@@ -277,7 +284,11 @@ const Home: NextPage<{}, {}> = () => {
 					development services. I aim to reply to any messages as soon as
 					possible.
 				</p>
-				<form className="grid grid-cols-1 gap-6" onSubmit={() => handleSubmit}>
+				<form
+					className="grid grid-cols-1 gap-6"
+					onSubmit={() => handleSubmit}
+					id="contact"
+				>
 					<label>
 						<span>Email</span>
 						<input
