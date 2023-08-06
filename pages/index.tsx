@@ -64,7 +64,7 @@ const Home: NextPage<{}, {}> = () => {
 
 			{/* About section */}
 			<section
-				className="text-justify md:prose-xl prose mx-auto max-w-screen-xl pb-16 pt-16 md:px-0 px-4"
+				className="text-justify md:prose-xl prose mx-auto max-w-screen-xl pb-16 pt-16 xl:px-0 px-4"
 				id="about"
 			>
 				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4">
@@ -88,7 +88,7 @@ const Home: NextPage<{}, {}> = () => {
 			</section>
 
 			{/* CV stuff */}
-			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 md:px-0 px-4">
+			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 xl:px-0 px-4">
 				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4">
 					Experience and Education
 				</h2>
@@ -203,7 +203,7 @@ const Home: NextPage<{}, {}> = () => {
 			{/*</section>*/}
 
 			{/* Services */}
-			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 md:px-0 px-4">
+			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 xl:px-0 px-4">
 				<h2
 					className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4"
 					id="services"
@@ -272,9 +272,9 @@ const Home: NextPage<{}, {}> = () => {
 				</Disclosure>
 			</section>
 
-			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-32 md:px-0 px-4">
+			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-32 xl:px-0 px-4">
 				<h2
-					className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4"
+					className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4"
 					id="contact"
 				>
 					Contact

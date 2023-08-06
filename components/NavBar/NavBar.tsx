@@ -39,7 +39,7 @@ const NavBar = (): JSX.Element => {
 		<Disclosure as="nav">
 			{({ open }) => (
 				<div className="bg-black drop-shadow-md">
-					<nav className="sticky top-0 z-50 flex items-center justify-between py-5 text-white pt-4 max-w-screen-xl  mx-auto px-4 md:px-0">
+					<nav className="sticky top-0 z-50 flex items-center justify-between py-5 text-white pt-4 max-w-screen-xl  mx-auto px-4 xl:px-0">
 						<div>
 							<Link href="/" passHref>
 								<a className="font-mono">AspieCoder.com</a>
