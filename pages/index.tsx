@@ -305,7 +305,7 @@ const Home: NextPage<{}, {}> = () => {
 						/>
 					</label>
 
-					<div className="grid grid-cols-2 gap-6">
+					<div className="grid md:grid-cols-2 grid-cols-1 gap-6">
 						<label>
 							<span>First name</span>
 							<input
