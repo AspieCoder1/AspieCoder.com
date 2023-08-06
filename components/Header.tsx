@@ -13,16 +13,18 @@ type Props = {
 
 const Header = (props: Props) => {
 	return (
-		<header className="pt-16 pb-16 md:pt-32 md:pb-32 bg-black w-full text-center text-white drop-shadow-md">
-			<h1 className=" text-2xl md:text-5xl font-bold text-white mx-10 md:mx-32">
-				{props.title}
-			</h1>
-			<div className="flex flex-col md:flex-row md:space-x-6 items-baseline w-full content-center text-md md:text-2xl justify-center mt-7">
-				<p className="text-center  w-full md:w-auto">{props.author}</p>
-				<p className="text-center  w-full md:w-auto">
-					{dayjs(props.date).format('MMM D, YYYY')}
-				</p>
-				<p className="text-center w-full md:w-auto">{props.readingTime}</p>
+		<header className="pt-32 pb-8 md:pt-64 md:pb-16 grad-4-1 w-full text-white drop-shadow-md">
+			<div className="max-w-screen-xl mx-auto">
+				<h1 className="text-2xl md:text-5xl font-bold text-white">
+					{props.title}
+				</h1>
+				<div className="flex flex-row md:space-x-6 w-full content-center text-md md:text-2xl mt-7 font-light">
+					<p className="text-center  w-full md:w-auto">{props.author}</p>
+					<p className="text-center  w-full md:w-auto">
+						{dayjs(props.date).format('MMM D, YYYY')}
+					</p>
+					<p className="text-center w-full md:w-auto">{props.readingTime}</p>
+				</div>
 			</div>
 		</header>
 	);

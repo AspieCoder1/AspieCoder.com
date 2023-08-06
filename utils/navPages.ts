@@ -4,5 +4,5 @@
 
 export const navPages = [
 	{ page: 'Blog', url: '/blog' },
-	{ page: 'About', url: '/about' },
+	{ page: 'About', url: '/#about' },
 ];
