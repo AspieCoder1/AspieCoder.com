@@ -288,10 +288,10 @@ const Home: NextPage<{}, {}> = () => {
 				<h4>Prices</h4>
 				<p>
 					Every single project will have a different scope and features, so the
-					pricing is necessarily dependent on the size and complexity of the
-					project. If you would like to work with me on a project please
-					complete the contact form below and I will arrange a meeting to
-					discuss the project with you.
+					price will vary dependent on the size and complexity of the project.
+					If you would like to work with me on a project please complete the
+					contact form below and I will arrange a meeting to discuss the project
+					with you.
 				</p>
 				<h4>Questions?</h4>
 				<p>
