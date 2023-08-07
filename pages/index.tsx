@@ -226,8 +226,8 @@ const Home: NextPage<{}, {}> = () => {
 							<Disclosure.Panel className="px-4 pt-4 pb-2 text-gray-500">
 								I can offer my services as an tutor for the following subjects:
 								<ul>
-									<li>A-Level Mathematics</li>
-									<li>GCSE Mathematics</li>
+									<li>A-Level Maths</li>
+									<li>GCSE Maths</li>
 									<li>GCSE Computer Science</li>
 								</ul>
 								<h4>Qualifications</h4>
