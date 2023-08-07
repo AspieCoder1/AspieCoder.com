@@ -103,8 +103,9 @@ const Home: NextPage<{}, {}> = () => {
 						</h3>
 						<h4>University of Manchester</h4>
 						<ul className="list-disc list-inside pt-2">
+							<li>Final classification: 80.4/100</li>
 							<li>Final year project: Bias and Variance in Machine Learning</li>
-							<li>Final year project mark: 80.4/100</li>
+							<li>Final year project mark: 82/100</li>
 							<li>2021 &mdash; 2022: Hackathons Co-Lead for the CS society</li>
 						</ul>
 					</VerticalTimelineElement>
