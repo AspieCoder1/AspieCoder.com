@@ -243,7 +243,7 @@ const Home: NextPage<{}, {}> = () => {
 						icon={
 							<CheckIcon className="p-2 shrink-0 rounded-full h-8 w-8 bg-white text-green-800" />
 						}
-						text="A custom built high-performance website built with a modern technology stack"
+						text="A custom high-performance website built with a modern technology stack"
 					/>
 					<IconBulletPoint
 						icon={
