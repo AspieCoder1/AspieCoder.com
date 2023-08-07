@@ -7,9 +7,14 @@ import Head from 'next/head';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import NavBar from '@components/NavBar/NavBar';
 import Footer from '@components/Footer';
-import { FaPython } from 'react-icons/fa';
-import { MdOutlineWork, MdSchool, MdStar } from 'react-icons/md';
 import { useForm, ValidationError } from '@formspree/react';
+import {
+	CheckIcon,
+	XMarkIcon,
+	AcademicCapIcon,
+	BriefcaseIcon,
+	StarIcon,
+} from '@heroicons/react/24/solid';
 
 import * as React from 'react';
 
@@ -19,8 +24,20 @@ import {
 	// @ts-ignore
 } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { Disclosure } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/24/solid';
+import FAQDisclosure from '@components/FAQDisclosure';
+
+const IconBulletPoint = ({
+	icon,
+	text,
+}: {
+	icon: React.ReactNode;
+	text: string;
+}) => (
+	<div className="flex items-center space-x-3">
+		{icon}
+		<span>{text}</span>
+	</div>
+);
 
 const Home: NextPage<{}, {}> = () => {
 	const [state, handleSubmit] = useForm('xeqbeyov');
@@ -64,7 +81,7 @@ const Home: NextPage<{}, {}> = () => {
 
 			{/* About section */}
 			<section
-				className="md:prose-xl prose mx-auto max-w-screen-xl pb-16 pt-16 xl:px-0 px-4"
+				className="md:prose-xl prose mx-auto max-w-screen-xl md:py-16 py-8 xl:px-0 px-4"
 				id="about"
 			>
 				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4">
@@ -88,15 +105,15 @@ const Home: NextPage<{}, {}> = () => {
 			</section>
 
 			{/* CV stuff */}
-			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 xl:px-0 px-4">
+			<section className=" md:prose-xl prose mx-auto max-w-screen-xl md:pb-16 pb-8 xl:px-0 px-4">
 				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4">
 					Experience and Education
 				</h2>
 				<VerticalTimeline animate={false} className="pb-8">
 					<VerticalTimelineElement
 						date="2020 &ndash; 2023"
-						iconStyle={{ background: '#991b1b', color: '#fff' }}
-						icon={<MdSchool />}
+						iconStyle={{ background: '#991b1b' }}
+						icon={<AcademicCapIcon className="text-white" />}
 					>
 						<h3 className="text-lg font-bold">
 							Bachelor of Science in Computer Science, 1st Class
@@ -113,7 +130,7 @@ const Home: NextPage<{}, {}> = () => {
 						className="vertical-timeline-element--work"
 						date="Sep 2022 &ndash; Jun 2023"
 						iconStyle={{ background: '#1e3a8a', color: '#fff' }}
-						icon={<MdOutlineWork />}
+						icon={<BriefcaseIcon />}
 					>
 						<h3 className="text-lg font-bold">Dev Team Member</h3>
 						<h4>UniCS</h4>
@@ -134,7 +151,7 @@ const Home: NextPage<{}, {}> = () => {
 						className="vertical-timeline-element--work"
 						date="Jun 2022 &ndash; Sep 2022"
 						iconStyle={{ background: '#1e3a8a', color: '#fff' }}
-						icon={<MdOutlineWork />}
+						icon={<BriefcaseIcon />}
 					>
 						<h3 className="text-lg font-bold">
 							Graduate Software Engineer (Intern) &mdash; ML & Data
@@ -147,7 +164,7 @@ const Home: NextPage<{}, {}> = () => {
 								conditions
 							</li>
 							<li>
-								Developed transformer-based produce recomendation system using
+								Developed transformer-based produce recommendation system using
 								the NVIDIA Merlin framework and PyTorch
 							</li>
 						</ul>
@@ -156,7 +173,7 @@ const Home: NextPage<{}, {}> = () => {
 						className="vertical-timeline-element--work"
 						date="Sep 2022 &ndash; Jun 2023"
 						iconStyle={{ background: '#1e3a8a', color: '#fff' }}
-						icon={<MdOutlineWork />}
+						icon={<BriefcaseIcon />}
 					>
 						<h3 className="text-lg font-bold">Software Engineer</h3>
 						<h4>Imago &mdash; The Student Software Company</h4>
@@ -174,7 +191,7 @@ const Home: NextPage<{}, {}> = () => {
 					</VerticalTimelineElement>
 					<VerticalTimelineElement
 						iconStyle={{ background: '#14532d', color: '#fff' }}
-						icon={<MdStar />}
+						icon={<StarIcon />}
 					/>
 				</VerticalTimeline>
 			</section>
@@ -204,103 +221,138 @@ const Home: NextPage<{}, {}> = () => {
 			{/*</section>*/}
 
 			{/* Services */}
-			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 xl:px-0 px-4">
+			<section className=" md:prose-xl prose mx-auto max-w-screen-xl md:pb-16 pb-8  xl:px-0 px-4">
 				<h2
-					className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4"
+					className="text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4"
 					id="services"
 				>
 					Services
 				</h2>
-				<p>I offer the following services:</p>
-				<Disclosure as="div">
-					{({ open }) => (
-						<>
-							<Disclosure.Button className="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 items-center">
-								<span>Tutoring</span>
-								<ChevronUpIcon
-									className={`${
-										open ? 'rotate-180 transform' : ''
-									} h-5 w-5 text-purple-500`}
-								/>
-							</Disclosure.Button>
-							<Disclosure.Panel className="px-4 pt-4 pb-2 text-gray-500">
-								I can offer my services as an tutor for the following subjects:
-								<ul>
-									<li>A-Level Maths</li>
-									<li>GCSE Maths</li>
-									<li>GCSE Computer Science</li>
-								</ul>
-								<h4>Qualifications</h4>
-								In addition to a bachelors degree in computer science, I have
-								A-levels in:
-								<ul>
-									<li>Maths (A*)</li>
-									<li>Further Maths (A*)</li>
-									<li>Geography (A*)</li>
-									<li>Chemistry (A)</li>
-								</ul>
-								If you are interested in this service please use the contact
-								form down below.
-								<h4>Prices</h4>
-								For tutoring I charge an hourly rate of £25/hr.
-							</Disclosure.Panel>
-						</>
-					)}
-				</Disclosure>
-				<Disclosure as="div" className="mt-2">
-					{({ open }) => (
-						<>
-							<Disclosure.Button className="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 items-center">
-								<span>Coding/programming lessons</span>
-								<ChevronUpIcon
-									className={`${
-										open ? 'rotate-180 transform' : ''
-									} h-5 w-5 text-purple-500`}
-								/>
-							</Disclosure.Button>
-							<Disclosure.Panel className="px-4 pt-4 pb-2 text-gray-500">
-								I also offer coding lessons in the following languages:
-								<ul>
-									<li>Python</li>
-									<li>JavaScript, HTML and CSS</li>
-								</ul>
-								If you would be interested in this service please complete the
-								form below. In the message could you mention what programming
-								language you would like me to teach and the experience level.
-								<h4>Prices</h4>
-								For coding lessons I charge an hourly rate of £25/hr.
-							</Disclosure.Panel>
-						</>
-					)}
-				</Disclosure>
-				<Disclosure as="div" className="mt-2">
-					{({ open }) => (
-						<>
-							<Disclosure.Button className="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 items-center">
-								<span>Web development</span>
-								<ChevronUpIcon
-									className={`${
-										open ? 'rotate-180 transform' : ''
-									} h-5 w-5 text-purple-500`}
-								/>
-							</Disclosure.Button>
-							<Disclosure.Panel className="px-4 pt-4 pb-2 text-gray-500">
-								Do you need a website for your business? If so, I also offer web
-								development services.
-								<h4>Prices</h4>
-								Every single project will have a different scope and features,
-								so the pricing is necessarily dependent on the size and
-								complexity of the project. If you would like to work with me on
-								a project please complete the contact form below and I will
-								arrange a meeting to discuss the project with you.
-							</Disclosure.Panel>
-						</>
-					)}
-				</Disclosure>
+				<p>
+					Does your business need a website? If so I offer a web development
+					service to create a custom and adaptive website for your business.
+					Unlike other web developers I do not use a website builder, all of my
+					websites are built using the <a href="https://nextjs.org/">Next.js</a>{' '}
+					framework. This allows me to build a high-performance website quickly
+					and gives you the scope to grow with a mature tech stack and
+					future-proofs the final site.
+				</p>
+				<h4>What is included</h4>
+				<div className="grid grid-cols-1 gap-3 pl-3">
+					<IconBulletPoint
+						icon={
+							<CheckIcon className="p-2 shrink-0 rounded-full h-8 w-8 bg-white text-green-800" />
+						}
+						text="A custom built high-performance website built with a modern technology stack"
+					/>
+					<IconBulletPoint
+						icon={
+							<CheckIcon className="p-2 shrink-0 rounded-full h-8 w-8 bg-white text-green-800" />
+						}
+						text="Responsive design that adapts to mobile and tablet devices"
+					/>
+					<IconBulletPoint
+						icon={
+							<CheckIcon className="p-2 shrink-0 rounded-full h-8 w-8 bg-white text-green-800" />
+						}
+						text="Initial deployment and hosting support"
+					/>
+					<IconBulletPoint
+						icon={
+							<CheckIcon className="p-2 shrink-0 rounded-full h-8 w-8 bg-white text-green-800" />
+						}
+						text="Implementation with a CMS to allow you to update the content of the site"
+					/>
+				</div>
+				<h4>What is not included</h4>
+				<div className="grid grid-cols-1 gap-3 pl-3">
+					<IconBulletPoint
+						icon={
+							<XMarkIcon className="p-2 shrink-0 rounded-full h-8 w-8 text-red-900 bg-white" />
+						}
+						text="Graphic design or image editing"
+					/>
+					<IconBulletPoint
+						icon={
+							<XMarkIcon className="p-2 shrink-0 rounded-full h-8 w-8 text-red-900 bg-white" />
+						}
+						text="Copy writing or editing"
+					/>
+					<IconBulletPoint
+						icon={
+							<XMarkIcon className="p-2 shrink-0 rounded-full h-8 w-8 text-red-900 bg-white" />
+						}
+						text="SEO optimisation"
+					/>
+				</div>
+				<h4>Prices</h4>
+				<p>
+					Every single project will have a different scope and features, so the
+					pricing is necessarily dependent on the size and complexity of the
+					project. If you would like to work with me on a project please
+					complete the contact form below and I will arrange a meeting to
+					discuss the project with you.
+				</p>
+				<h4>Questions?</h4>
+				<p>
+					I you have any questions please use the contact form at the bottom of
+					the page and I endeavour to respond as soon as possible.
+				</p>
 			</section>
 
+			{/*<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-16 xl:px-0 px-4">*/}
+			{/*	<h2 className="text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4">*/}
+			{/*		Frequently asked questions*/}
+			{/*	</h2>*/}
+			{/*	<div className="grid grid-cols-1 gap-4">*/}
+			{/*		<FAQDisclosure title="Tutoring">*/}
+			{/*			I can offer my services as an tutor for the following subjects:*/}
+			{/*			<ul>*/}
+			{/*				<li>A-Level Maths</li>*/}
+			{/*				<li>GCSE Maths</li>*/}
+			{/*				<li>GCSE Computer Science</li>*/}
+			{/*			</ul>*/}
+			{/*			<h4>Qualifications</h4>*/}
+			{/*			In addition to a bachelors degree in computer science, I have*/}
+			{/*			A-levels in:*/}
+			{/*			<ul>*/}
+			{/*				<li>Maths (A*)</li>*/}
+			{/*				<li>Further Maths (A*)</li>*/}
+			{/*				<li>Geography (A*)</li>*/}
+			{/*				<li>Chemistry (A)</li>*/}
+			{/*			</ul>*/}
+			{/*			If you are interested in this service please use the contact form*/}
+			{/*			down below.*/}
+			{/*			<h4>Prices</h4>*/}
+			{/*			For tutoring I charge an hourly rate of £25/hr.*/}
+			{/*		</FAQDisclosure>*/}
+			{/*		<FAQDisclosure title="Coding/programming lessons">*/}
+			{/*			I also offer coding lessons in the following languages:*/}
+			{/*			<ul>*/}
+			{/*				<li>Python</li>*/}
+			{/*				<li>JavaScript, HTML and CSS</li>*/}
+			{/*			</ul>*/}
+			{/*			If you would be interested in this service please complete the form*/}
+			{/*			below. In the message could you mention what programming language*/}
+			{/*			you would like me to teach and the experience level.*/}
+			{/*			<h4>Prices</h4>*/}
+			{/*			For coding lessons I charge an hourly rate of £25/hr.*/}
+			{/*		</FAQDisclosure>*/}
+			{/*		<FAQDisclosure title="Web development">*/}
+			{/*			Do you need a website for your business? If so, I also offer web*/}
+			{/*			development services.*/}
+			{/*			<h4>Prices</h4>*/}
+			{/*			Every single project will have a different scope and features, so*/}
+			{/*			the pricing is necessarily dependent on the size and complexity of*/}
+			{/*			the project. If you would like to work with me on a project please*/}
+			{/*			complete the contact form below and I will arrange a meeting to*/}
+			{/*			discuss the project with you.*/}
+			{/*		</FAQDisclosure>*/}
+			{/*	</div>*/}
+			{/*</section>*/}
+
 			{/* Contact */}
-			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-32 xl:px-0 px-4">
+			<section className=" md:prose-xl prose mx-auto max-w-screen-xl md:pb-32 pb-16 xl:px-0 px-4">
 				<h2
 					className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4"
 					id="contact"
@@ -367,17 +419,14 @@ const Home: NextPage<{}, {}> = () => {
 					</div>
 
 					<label>
-						<span>I am enquiring about...</span>
-						<select
-							id="subject"
+						<span>Subject</span>
+						<input
+							type="text"
+							className="form-input px-4 py-3 w-full"
 							name="subject"
-							className="form-select px-4 py-3 w-full"
-						>
-							<option>Tutoring</option>
-							<option>Coding lessons</option>
-							<option>Web development</option>
-							<option>Other</option>
-						</select>
+							id="subject"
+							placeholder="Subject"
+						/>
 						<ValidationError
 							prefix="Subject"
 							field="subject"
@@ -413,6 +462,7 @@ const Home: NextPage<{}, {}> = () => {
 					</div>
 				</form>
 			</section>
+
 			<Footer />
 		</div>
 	);
