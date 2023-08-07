@@ -360,9 +360,8 @@ const Home: NextPage<{}, {}> = () => {
 					Contact
 				</h2>
 				<p>
-					Please complete in this form to inquire about either tutoring or web
-					development services. I aim to reply to any messages as soon as
-					possible.
+					Please complete in this form to inquire about web development
+					services. I aim to reply to any messages as soon as possible.
 				</p>
 				<form
 					className="grid grid-cols-1 gap-6"
