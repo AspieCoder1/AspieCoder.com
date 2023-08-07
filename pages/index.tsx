@@ -96,11 +96,13 @@ const Home: NextPage<{}, {}> = () => {
 					the behaviour of machine learning models. During my degree I
 					specialised in machine learning theory, I am particularly interested
 					in exploring how we can develop theories to understand and explain the
-					generalisation of deep neural networks. In October 2023, I will begin
-					studying the MPhil in Advanced Computer Science at the University of
-					Cambridge as a member of Peterhouse. During this time I hope to expand
-					upon my knowledge of deep learning theory and machine learning more
-					generally.
+					generalisation of deep neural networks.
+				</p>
+				<p>
+					In October 2023, I will begin studying the MPhil in Advanced Computer
+					Science at the University of Cambridge as a member of Peterhouse.
+					During this time I hope to expand upon my knowledge of deep learning
+					theory and machine learning more generally.
 				</p>
 			</section>
 
