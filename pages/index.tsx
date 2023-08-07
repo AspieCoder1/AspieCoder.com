@@ -64,7 +64,7 @@ const Home: NextPage<{}, {}> = () => {
 
 			{/* About section */}
 			<section
-				className="text-justify md:prose-xl prose mx-auto max-w-screen-xl pb-16 pt-16 xl:px-0 px-4"
+				className="md:prose-xl prose mx-auto max-w-screen-xl pb-16 pt-16 xl:px-0 px-4"
 				id="about"
 			>
 				<h2 className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full md:pb-4">
@@ -225,9 +225,9 @@ const Home: NextPage<{}, {}> = () => {
 							<Disclosure.Panel className="px-4 pt-4 pb-2 text-gray-500">
 								I can offer my services as an tutor for the following subjects:
 								<ul>
-									<li>A-Level Maths</li>
-									<li>GCSE Maths</li>
-									<li>Coding and general programming help</li>
+									<li>A-Level Mathematics</li>
+									<li>GCSE Mathematics</li>
+									<li>GCSE Computer Science</li>
 								</ul>
 								<h4>Qualifications</h4>
 								In addition to a bachelors degree in computer science, I have
@@ -242,6 +242,32 @@ const Home: NextPage<{}, {}> = () => {
 								form down below.
 								<h4>Prices</h4>
 								For tutoring I charge an hourly rate of £25/hr.
+							</Disclosure.Panel>
+						</>
+					)}
+				</Disclosure>
+				<Disclosure as="div" className="mt-2">
+					{({ open }) => (
+						<>
+							<Disclosure.Button className="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 items-center">
+								<span>Coding/programming lessons</span>
+								<ChevronUpIcon
+									className={`${
+										open ? 'rotate-180 transform' : ''
+									} h-5 w-5 text-purple-500`}
+								/>
+							</Disclosure.Button>
+							<Disclosure.Panel className="px-4 pt-4 pb-2 text-gray-500">
+								I also offer coding lessons in the following languages:
+								<ul>
+									<li>Python</li>
+									<li>JavaScript, HTML and CSS</li>
+								</ul>
+								If you would be interested in this service please complete the
+								form below. In the message could you mention what programming
+								language you would like me to teach and the experience level.
+								<h4>Prices</h4>
+								For coding lessons I charge an hourly rate of £25/hr.
 							</Disclosure.Panel>
 						</>
 					)}
@@ -272,6 +298,7 @@ const Home: NextPage<{}, {}> = () => {
 				</Disclosure>
 			</section>
 
+			{/* Contact */}
 			<section className=" md:prose-xl prose mx-auto max-w-screen-xl pb-32 xl:px-0 px-4">
 				<h2
 					className="text-3xl text-purple-900 font-bold mx-auto max-w-screen-xl w-full pb-4"
@@ -346,7 +373,9 @@ const Home: NextPage<{}, {}> = () => {
 							className="form-select px-4 py-3 w-full"
 						>
 							<option>Tutoring</option>
+							<option>Coding lessons</option>
 							<option>Web development</option>
+							<option>Other</option>
 						</select>
 						<ValidationError
 							prefix="Subject"

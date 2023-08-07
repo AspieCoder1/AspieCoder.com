@@ -12,7 +12,7 @@ module.exports = {
 	theme: {
 		extend: {
 			typography: ({ theme }) => ({
-				xl: {
+				DEFAULT: {
 					css: {
 						'code::before': {
 							content: '',
@@ -38,35 +38,6 @@ module.exports = {
 							color: theme('colors.purple.900'),
 							fontWeight: 600,
 							textDecoration: 'none',
-						},
-					},
-				},
-				lg: {
-					css: {
-						'code::before': {
-							content: '',
-						},
-						'code::after': {
-							content: '',
-						},
-						pre: {
-							backgroundColor: 'transparent',
-						},
-						h2: {
-							paddingTop: 0,
-							marginTop: 0,
-							marginBottom: 0.5,
-						},
-						'blockquote p:first-of-type::before': {
-							content: '',
-						},
-						'blockquote p:last-of-type::after': {
-							content: '',
-						},
-						a: {
-							color: theme('colors.purple.800'),
-							fontWeight: 600,
-							underline: false,
 						},
 					},
 				},
