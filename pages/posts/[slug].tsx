@@ -5,8 +5,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import remarkGfm from 'remark-gfm';
-
-import { getPage, getSlugs, TBlogPost } from '@libs/contentfulClient';
 import ReactMarkdown from 'react-markdown';
 
 import readingTime, { ReadTimeResults } from 'reading-time';
@@ -18,8 +16,17 @@ import Layout from '@components/Layout';
 import { getMarkdownSettings } from '@utils/remarkStyling';
 import rehypeRaw from 'rehype-raw';
 import smartypants from 'remark-smartypants';
+import { createClient, fetchExchange } from '@urql/core';
+import { graphqlURL } from '@libs/graphql/graphqlClient';
+import {
+	GetPostQueryDocument,
+	GetPostQueryFragment,
+	SlugsQueryDocument,
+} from '@generated/generated';
+import { customAuthExchange } from '@libs/graphql/auth';
 
-type Props = TBlogPost & {
+type Props = {
+	post?: GetPostQueryFragment;
 	readingTime: ReadTimeResults;
 };
 
@@ -28,7 +35,17 @@ interface Params extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-	const slugs = await getSlugs();
+	const client = createClient({
+		url: graphqlURL,
+		exchanges: [customAuthExchange, fetchExchange],
+	});
+
+	const { data } = await client.query(SlugsQueryDocument, {}).toPromise();
+	const slugs =
+		data?.blogPostCollection?.items
+			.map((item) => item?.slug)
+			.filter((slug): slug is string => !!slug) ?? [];
+
 	return {
 		paths: slugs.map((slug) => ({ params: { slug } })),
 		fallback: false,
@@ -37,37 +54,51 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const { slug } = params as Params;
-	const fields = await getPage(slug);
-	if (!fields) {
+
+	const client = createClient({
+		url: graphqlURL,
+		exchanges: [customAuthExchange, fetchExchange],
+	});
+
+	const { data } = await client
+		.query(GetPostQueryDocument, { slug })
+		.toPromise();
+
+	if (
+		!data ||
+		data.blogPostCollection?.items?.length === 0 ||
+		!data.blogPostCollection?.items
+	) {
 		return {
 			notFound: true,
 		};
 	}
-	const timeToRead = readingTime(fields.article);
-	return { props: { ...fields, readingTime: timeToRead } };
+
+	const post = data.blogPostCollection?.items[0];
+	const timeToRead = readingTime(post?.article ?? '');
+	return { props: { post, readingTime: timeToRead } };
 };
 
-const Posts: NextPage<Props, {}> = (props) => {
+const Posts: NextPage<Props, {}> = ({ post, readingTime }) => {
 	return (
 		<>
 			<Head>
-				<title>{props.title}</title>
-				<meta name="description" content={props.summary} />
+				<title>{post?.title}</title>
 			</Head>
 			<Layout>
 				<Header
-					title={props.title}
-					date={props.date}
-					readingTime={props.readingTime.text}
-					author={props.author}
+					title={post?.title}
+					date={post?.date}
+					readingTime={readingTime.text}
+					author={post?.author?.name}
 				/>
-				<article className="lg:mx-auto prose md:prose-lg lg:prose-xl mt-8 md:mt-16 mb-8 md:mb-16 lg:max-w-screen-lg max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
+				<article className="lg:mx-auto prose md:prose-lg lg:prose-xl my-8 md:my-16 lg:max-w-screen-xl max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
 					<ReactMarkdown
 						components={getMarkdownSettings()}
 						remarkPlugins={[remarkGfm, remarkUnwrapImages, smartypants]}
 						rehypePlugins={[rehypeRaw]}
 					>
-						{props.article}
+						{post?.article ?? 'Article has no content'}
 					</ReactMarkdown>
 				</article>
 			</Layout>

@@ -38,8 +38,8 @@ const NavBar = (): JSX.Element => {
 	return (
 		<Disclosure as="nav">
 			{({ open }) => (
-				<>
-					<nav className="sticky top-0 z-50 flex items-center justify-between md:px-32 px-4 py-5 bg-black text-white pt-4 w-full drop-shadow-md">
+				<div className="bg-black drop-shadow-md">
+					<nav className="sticky top-0 z-50 flex items-center justify-between py-5 text-white pt-4 max-w-screen-xl  mx-auto px-4 xl:px-0">
 						<div>
 							<Link href="/" passHref>
 								<a className="font-mono">AspieCoder.com</a>
@@ -80,7 +80,7 @@ const NavBar = (): JSX.Element => {
 							</MyLink>
 						))}
 					</Disclosure.Panel>
-				</>
+				</div>
 			)}
 		</Disclosure>
 	);

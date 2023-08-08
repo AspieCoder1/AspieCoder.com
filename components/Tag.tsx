@@ -5,13 +5,13 @@
 import * as React from 'react';
 
 type Props = {
-	content: string;
+	children: React.ReactNode;
 };
 
-const Tag = ({ content }: Props): JSX.Element => {
+const Tag = ({ children }: Props): JSX.Element => {
 	return (
 		<div className="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-violet-200 text-violet-700 rounded-full">
-			{content}
+			{children}
 		</div>
 	);
 };

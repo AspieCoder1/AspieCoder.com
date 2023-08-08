@@ -34,6 +34,11 @@ module.exports = {
 						'blockquote p:last-of-type::after': {
 							content: '',
 						},
+						a: {
+							color: theme('colors.purple.900'),
+							fontWeight: 600,
+							textDecoration: 'none',
+						},
 					},
 				},
 				gray: {
@@ -46,6 +51,8 @@ module.exports = {
 	},
 	plugins: [
 		require('@tailwindcss/typography'),
+		require('@tailwindcss/line-clamp'),
+		require('@tailwindcss/forms'),
 		plugin(({ addVariant }) => {
 			addVariant('not-last', '&:not(:last-child)');
 		}),

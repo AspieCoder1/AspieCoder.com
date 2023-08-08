@@ -1,0 +1,16 @@
+query getPostQuery($slug: String) {
+	blogPostCollection(limit: 1, where: { slug: $slug }) {
+		items {
+			...GetPostQuery
+		}
+	}
+}
+
+fragment GetPostQuery on BlogPost {
+	title
+	author {
+		name
+	}
+	date
+	article
+}
