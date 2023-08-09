@@ -21,7 +21,7 @@
 		"@urql/exchange-auth": "^1.0.0",
 		"ajv": "^8.11.0",
 		"contentful": "^9.1.5",
-		"dayjs": "^1.10.7",
+		"dayjs": "^1.11.9",
 		"global": "^4.4.0",
 		"graphql": "^16.6.0",
 		"next": "^12.2.5",
