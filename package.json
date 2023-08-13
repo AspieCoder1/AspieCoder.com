@@ -19,6 +19,7 @@
 		"@tailwindcss/forms": "^0.5.4",
 		"@types/react-syntax-highlighter": "^13.5.2",
 		"@urql/exchange-auth": "^1.0.0",
+		"@vercel/analytics": "^1.0.2",
 		"ajv": "^8.11.0",
 		"contentful": "^9.1.5",
 		"dayjs": "^1.10.7",
