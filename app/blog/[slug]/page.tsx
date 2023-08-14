@@ -35,9 +35,11 @@ const { getClient } = registerUrql(makeClient);
 export const generateStaticParams = async () => {
 	const result = await getClient().query(SlugsQueryDocument, {});
 
-	return result.data?.blogPostCollection?.items.map((item) => ({
-		slug: item?.slug,
-	}));
+	return (
+		result.data?.blogPostCollection?.items.map((item) => ({
+			slug: item?.slug,
+		})) ?? []
+	);
 };
 
 export const generateMetadata = async (
