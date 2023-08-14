@@ -20,6 +20,7 @@ import readingTime from 'reading-time';
 
 type Props = {
 	params: { slug: string };
+	searchParams: { [key: string]: string | string[] | undefined };
 };
 
 const makeClient = () => {
@@ -39,9 +40,10 @@ export const generateStaticParams = async () => {
 	}));
 };
 
-export const generateMetadata = async ({
-	params,
-}: Props): Promise<Metadata> => {
+export const generateMetadata = async (
+	{ params }: Props,
+	_parent: ResolvingMetadata
+): Promise<Metadata> => {
 	const result = await getClient().query(GetPostQueryDocument, {
 		slug: params.slug,
 	});
@@ -57,7 +59,7 @@ export const generateMetadata = async ({
 		},
 	};
 };
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = async ({ params }: Props) => {
 	const result = await getClient().query(GetPostQueryDocument, {
 		slug: params.slug,
 	});
