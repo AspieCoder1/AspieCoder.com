@@ -1,0 +1,7 @@
+query getTitleFromSlugQuery ($slug: String) {
+    blogPostCollection(limit: 1, where: { slug: $slug }) {
+        items {
+            title
+        }
+    }
+}

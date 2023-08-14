@@ -3,9 +3,8 @@
  */
 import { NormalComponents } from 'react-markdown/lib/complex-types';
 import { SpecialComponents } from 'react-markdown/lib/ast-to-react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import Image from 'next/image';
+import CodeHighlighter from '@components/CodeHighlighter';
 
 export const getMarkdownSettings = ():
 	| Partial<Omit<NormalComponents, keyof SpecialComponents> & SpecialComponents>
@@ -13,23 +12,9 @@ export const getMarkdownSettings = ():
 	code: ({ inline, className, children, ...codeProps }) => {
 		const match = /language-(\w+)/.exec(className || '');
 		return !inline && match ? (
-			<SyntaxHighlighter
-				style={materialLight}
-				language={match[1]}
-				wrapLongLines
-				customStyle={{
-					backgroundColor: 'transparent',
-					padding: 0,
-					margin: 0,
-				}}
-				codeTagProps={{
-					style: {
-						backgroundColor: 'transparent',
-					},
-				}}
-			>
+			<CodeHighlighter language={match[1]}>
 				{String(children).replace(/\n$/, '')}
-			</SyntaxHighlighter>
+			</CodeHighlighter>
 		) : (
 			<code
 				className={`${
@@ -52,7 +37,7 @@ export const getMarkdownSettings = ():
 		const imageWidth = width < 1024 ? width : 1024;
 		const imageHeight = height * (imageWidth / width);
 		return (
-			<div className="flex justify-center">
+			<figure className="flex flex-col items-center">
 				<Image
 					className="mx-auto"
 					src={src ?? ''}
@@ -63,7 +48,8 @@ export const getMarkdownSettings = ():
 					placeholder="blur"
 					blurDataURL={src ?? ''}
 				/>
-			</div>
+				<figcaption>{name}</figcaption>
+			</figure>
 		);
 	},
 });
