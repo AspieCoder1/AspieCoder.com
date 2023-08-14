@@ -52,8 +52,13 @@ const Page = () => {
 				className="grad-4-1 w-full py-10 pt-72 pb-16 drop-shadow-md"
 			>
 				<div className="max-w-screen-xl mx-auto">
-					<h1 className="text-4xl text-white font-mono">Blog</h1>
-					<h2 className="text-white pt-5 text-xl">Read my latest blog posts</h2>
+					<h1 className="lg:text-6xl md:text-4xl text-xl font-bold text-white">
+						Blog
+					</h1>
+					<h2 className="text-white pt-5 text-xl">
+						Read my latest blog posts were I discuss my research and other
+						machine learning topic that takes my fancy
+					</h2>
 				</div>
 			</section>
 			<main className="mx-auto flex-1 max-w-screen-xl px-4 md:px-0 bg-gray-100">

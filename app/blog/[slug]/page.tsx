@@ -10,13 +10,16 @@ import { registerUrql } from '@urql/next/rsc';
 import { createClient, cacheExchange, fetchExchange } from '@urql/core';
 import { GetPostQueryDocument, SlugsQueryDocument } from '@generated/generated';
 import Header from '@components/Header';
-import ReactMarkdown from 'react-markdown';
-import { getMarkdownSettings } from '@utils/remarkStyling';
 import remarkGfm from 'remark-gfm';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import smartypants from 'remark-smartypants';
 import rehypeRaw from 'rehype-raw';
 import readingTime from 'reading-time';
+import { compileMDX } from 'next-mdx-remote/rsc';
+import { MDXComponents } from 'mdx/types';
+import rehypeCitation from 'rehype-citation/node/src';
+import CodeHighlighter from '@components/CodeHighlighter';
+import Image from 'next/image';
 
 type Props = {
 	params: { slug: string };
@@ -61,6 +64,39 @@ export const generateMetadata = async (
 		},
 	};
 };
+
+const components: MDXComponents = {
+	code: ({ className, children, ...codeProps }) => {
+		const match = /language-(\w+)/.exec(className ?? '') ?? '';
+		return <CodeHighlighter language={match[1]}>{children}</CodeHighlighter>;
+	},
+	img: ({ src, alt }) => {
+		const title = alt ?? '';
+		const [name, dimensions] = title.split('(');
+		const [width, height] = dimensions
+			.trim()
+			.replace(/[()]/g, '')
+			.split('x')
+			.map((val) => Number(val));
+		const imageWidth = width < 1024 ? width : 1024;
+		const imageHeight = height * (imageWidth / width);
+		return (
+			<figure className="flex flex-col items-center">
+				<Image
+					className="mx-auto"
+					src={src ?? ''}
+					alt={name.trim()}
+					width={imageWidth}
+					height={imageHeight}
+					placeholder="blur"
+					blurDataURL={src ?? ''}
+				/>
+				<figcaption>{name}</figcaption>
+			</figure>
+		);
+	},
+};
+
 const Page = async ({ params }: Props) => {
 	const result = await getClient().query(GetPostQueryDocument, {
 		slug: params.slug,
@@ -68,6 +104,19 @@ const Page = async ({ params }: Props) => {
 
 	const post = result?.data?.blogPostCollection?.items[0];
 	const timeToRead = readingTime(post?.article ?? '');
+
+	const { content } = await compileMDX({
+		source: post?.article ?? '',
+		options: {
+			parseFrontmatter: false,
+			mdxOptions: {
+				format: 'md',
+				remarkPlugins: [remarkGfm, remarkUnwrapImages, smartypants],
+				rehypePlugins: [rehypeRaw, rehypeCitation],
+			},
+		},
+		components,
+	});
 
 	return (
 		<>
@@ -78,13 +127,7 @@ const Page = async ({ params }: Props) => {
 				author={post?.author?.name}
 			/>
 			<article className="lg:mx-auto prose md:prose-lg lg:prose-xl my-8 md:my-16 lg:max-w-screen-xl max-w-screen-md mr-4 ml-4 lg:pr-4 lg:pl-4">
-				<ReactMarkdown
-					components={getMarkdownSettings()}
-					remarkPlugins={[remarkGfm, remarkUnwrapImages, smartypants]}
-					rehypePlugins={[rehypeRaw]}
-				>
-					{post?.article ?? 'Article has no content'}
-				</ReactMarkdown>
+				{content}
 			</article>
 		</>
 	);
