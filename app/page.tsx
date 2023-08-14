@@ -4,7 +4,7 @@
 
 import type { Metadata } from 'next';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
-import NavBar from '@components/NavBar/NavBar';
+import NavBar from '@components/NavBar';
 import Footer from '@components/Footer';
 import CV from './cv';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
