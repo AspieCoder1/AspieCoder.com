@@ -39,10 +39,9 @@ export const generateStaticParams = async () => {
 	}));
 };
 
-export const generateMetadata = async (
-	{ params }: Props,
-	parent?: ResolvingMetadata
-): Promise<Metadata> => {
+export const generateMetadata = async ({
+	params,
+}: Props): Promise<Metadata> => {
 	const result = await getClient().query(GetPostQueryDocument, {
 		slug: params.slug,
 	});
