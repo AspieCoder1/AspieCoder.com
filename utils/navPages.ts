@@ -7,4 +7,5 @@ export const navPages = [
 	{ page: 'About', url: '/#about' },
 	{ page: 'Services', url: '/#services' },
 	{ page: 'Contact', url: '/#contact' },
+	{ page: 'Blog', url: '/blog' },
 ];

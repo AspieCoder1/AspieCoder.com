@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 import Footer from '@components/Footer';
-import NavBar from '@components/NavBar/NavBar';
+import NavBar from '@components/NavBar';
 
 type Props = {
 	displayFooter?: boolean;

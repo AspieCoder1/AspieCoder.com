@@ -1,37 +1,21 @@
 import { authExchange } from '@urql/exchange-auth';
-import { makeOperation } from '@urql/core';
 
-
-const customAuthExchange = authExchange<{ token: string }>({
-	getAuth: async ({ authState }) => {
-		if (!authState) {
-			return {
-				token: `Bearer ${process.env.CF_DELIVERY_ACCESS_TOKEN}`,
-			};
-		}
-		return null;
-	},
-	addAuthToOperation: ({ authState, operation }) => {
-		if (!authState || !authState.token) {
-			return operation;
-		}
-
-		const fetchOptions =
-			typeof operation.context.fetchOptions === 'function'
-				? operation.context.fetchOptions()
-				: operation.context.fetchOptions || {};
-
-		return makeOperation(operation.kind, operation, {
-			...operation.context,
-			fetchOptions: {
-				...fetchOptions,
-				headers: {
-					...fetchOptions.headers,
-					Authorization: authState.token,
-				},
-			},
-		});
-	},
+const customAuthExchange = authExchange(async (utils) => {
+	const token = process.env.CF_DELIVERY_ACCESS_TOKEN;
+	return {
+		addAuthToOperation(operation) {
+			if (!token) return operation;
+			return utils.appendHeaders(operation, {
+				Authorization: `Bearer ${token}`,
+			});
+		},
+		didAuthError(error) {
+			return error.graphQLErrors.some(
+				(e) => e.extensions?.code === 'FORBIDDEN'
+			);
+		},
+		async refreshAuth() {},
+	};
 });
 
 export { customAuthExchange };
