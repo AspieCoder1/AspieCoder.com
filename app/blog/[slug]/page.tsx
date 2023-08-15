@@ -20,6 +20,8 @@ import { MDXComponents } from 'mdx/types';
 import rehypeCitation from 'rehype-citation/node/src';
 import CodeHighlighter from '@components/CodeHighlighter';
 import Image from 'next/image';
+import { getPlaiceholder } from 'plaiceholder';
+import { fetch } from '@whatwg-node/node-fetch';
 
 type Props = {
 	params: { slug: string };
@@ -70,7 +72,7 @@ const components: MDXComponents = {
 		const match = /language-(\w+)/.exec(className ?? '') ?? '';
 		return <CodeHighlighter language={match[1]}>{children}</CodeHighlighter>;
 	},
-	img: ({ src, alt }) => {
+	img: async ({ src, alt }) => {
 		const title = alt ?? '';
 		const [name, dimensions] = title.split('(');
 		const [width, height] = dimensions
@@ -80,6 +82,10 @@ const components: MDXComponents = {
 			.map((val) => Number(val));
 		const imageWidth = width < 1024 ? width : 1024;
 		const imageHeight = height * (imageWidth / width);
+
+		const imageData = await fetch(src ?? '').then((res) => res.buffer());
+		const { base64 } = await getPlaiceholder(imageData);
+
 		return (
 			<figure className="flex flex-col items-center">
 				<Image
@@ -89,7 +95,7 @@ const components: MDXComponents = {
 					width={imageWidth}
 					height={imageHeight}
 					placeholder="blur"
-					blurDataURL={src ?? ''}
+					blurDataURL={base64}
 				/>
 				<figcaption>{name}</figcaption>
 			</figure>
